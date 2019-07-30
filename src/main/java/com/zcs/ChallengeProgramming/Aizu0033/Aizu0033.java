@@ -1,4 +1,4 @@
-package com.zcs.ChallengeProgramming;
+package com.zcs.ChallengeProgramming.Aizu0033;
 
 import java.io.IOException;
 import java.io.InputStream;
