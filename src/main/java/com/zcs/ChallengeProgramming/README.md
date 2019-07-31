@@ -12,7 +12,7 @@
  - [X]   [~~POJ 1979 Red and Black~~](https://cn.vjudge.net/problem/POJ-1979)
  - [X] [~~Aizu 0118~~](https://cn.vjudge.net/problem/Aizu-0118)
  - [X] [~~Aizu 0033 Ball~~](https://cn.vjudge.net/problem/Aizu-0033)
- - [ ] POJ 3009
+ - [X] [~~POJ 3009~~](https://cn.vjudge.net/problem/POJ-3009)
 2. 宽度优先搜索
  - [X] [~~POJ3984 迷宫问题~~](https://cn.vjudge.net/problem/POJ-3984)
  - [X] [~~Aizu 0558 Cheess~~](https://cn.vjudge.net/problem/Aizu-0558)
