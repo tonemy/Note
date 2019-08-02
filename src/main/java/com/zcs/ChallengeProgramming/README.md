@@ -16,7 +16,7 @@
 2. 宽度优先搜索
  - [X] [~~POJ3984 迷宫问题~~](https://cn.vjudge.net/problem/POJ-3984)
  - [X] [~~Aizu 0558 Cheess~~](https://cn.vjudge.net/problem/Aizu-0558)
- - [ ] POJ 3669
+ - [X] [~~POJ 3669 Meteor Shower~~](https://cn.vjudge.net/problem/POJ-3669#author=s19435631)
  - [ ] Aizu 0121
  - [ ]   POJ 2718
  - [ ] POJ 3187
@@ -30,6 +30,8 @@
   本题的测试案例中，属于多输入案例，但在每组的第二行数据中，有多少行数据不知道。本来我不经常用Scanner来读取数据，常常使用readLine来读取数据，这次在`不知道多少行只知道多少个时，不知道怎么读取数据`。 
 - POJ 1979 Red and Black:
   本题，我做的思路是没有问题的，检查了好久一直没找到错误，哎~~~~！一直运行错误。
+- POJ 3669 Meteor Shower :
+  这题好坑哇，java中break只会跳出一层循环，我把bfs的代码单独写出来直接在bsf内部进行return，就可以了
 ### 附录：代码
  - 快速读取数据
 ```java
