@@ -1,41 +1,56 @@
+package com.zcs.ChallengeProgramming.Aizu0121;
 
-**参考地址:** https://cn.vjudge.net/article/46
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
 
- 
-### 第一章: 蓄势待发
- - [X]    [~~POJ 1852 Ants~~ ](https://cn.vjudge.net/problem/POJ-1852)
+/**
+ * Created by 张超帅 on 2019/8/3.
+ */
+public class Main {
+    static StringBuilder ori = new StringBuilder("01234567");
+    static StringBuilder tmp = null;
+    static Map<String, Integer> map = new HashMap<String, Integer>();
+    static Queue<StringBuilder> que = new LinkedList<StringBuilder>();
+    static int[] next = {-1, 1, 4, -4};
+    public static void main(String[] args) {
 
-### 第二章：初出茅庐
-1. 深度优先搜索
+        FastScanner sc = new FastScanner();
+        bfs();
+        while (sc.hasNext()) {
+            StringBuilder cur = new StringBuilder();
+            for (int i = 0; i < 8; i++) {
+                cur.append(sc.nextInt());
+            }
+            System.out.println(map.get(cur.toString()));
+        }
+    }
+    public static void bfs() {
 
- - [X]  [~~POJ 2386 Lake Counting~~](https://cn.vjudge.net/problem/POJ-2386)
- - [X]   [~~POJ 1979 Red and Black~~](https://cn.vjudge.net/problem/POJ-1979)
- - [X] [~~Aizu 0118~~](https://cn.vjudge.net/problem/Aizu-0118)
- - [X] [~~Aizu 0033 Ball~~](https://cn.vjudge.net/problem/Aizu-0033)
- - [X] [~~POJ 3009~~](https://cn.vjudge.net/problem/POJ-3009)
-2. 宽度优先搜索
- - [X] [~~POJ3984 迷宫问题~~](https://cn.vjudge.net/problem/POJ-3984)
- - [X] [~~Aizu 0558 Cheess~~](https://cn.vjudge.net/problem/Aizu-0558)
- - [X] [~~POJ 3669 Meteor Shower~~](https://cn.vjudge.net/problem/POJ-3669#author=s19435631)
- - [X] [~~Aizu 0121~~](https://cn.vjudge.net/problem/Aizu-0121)
-3. 穷竭搜索
- - [ ]   POJ 2718
- - [ ] POJ 3187
- - [ ] POJ 3050
- - [ ] Aizu 0525
+        map.put(ori.toString(), 0);
+        que.offer(ori);
+        while (!que.isEmpty()) {
+            ori = que.poll();
+            int x = ori.indexOf("0");
+            for(int k = 0; k < 4; k ++) {
+                int nx = x + next[k];
+                if((nx >= 0 && nx < 8) && !(k == 0 && (x == 0 || x == 4)) && !(k == 1 && (x == 3 || x == 7))){
 
+                    tmp = new StringBuilder(ori.toString());
+                    tmp.deleteCharAt(x);
+                    tmp.insert(x, ori.substring(nx, nx + 1));
+                    tmp.deleteCharAt(nx);
+                    tmp.insert(nx, ori.substring(x, x + 1));
 
- 
-### 附录: 笔记
-- POJ 1852 Ants : 
-  本题的测试案例中，属于多输入案例，但在每组的第二行数据中，有多少行数据不知道。本来我不经常用Scanner来读取数据，常常使用readLine来读取数据，这次在`不知道多少行只知道多少个时，不知道怎么读取数据`。 
-- POJ 1979 Red and Black:
-  本题，我做的思路是没有问题的，检查了好久一直没找到错误，哎~~~~！一直运行错误。
-- POJ 3669 Meteor Shower :
-  这题好坑哇，java中break只会跳出一层循环，我把bfs的代码单独写出来直接在bsf内部进行return，就可以了
-### 附录：代码
- - 快速读取数据
-```java
+                    if(!map.containsKey(tmp.toString())) {
+                        map.put(tmp.toString(), map.get(ori.toString()) + 1);
+                        que.offer(tmp);
+                    }
+                }
+            }
+        }
+    }
+}
 class FastScanner {
     private final InputStream in = System.in;
     private final byte[] buffer = new byte[1024];
@@ -95,16 +110,12 @@ class FastScanner {
             b = readByte();
         }
     }
-     
+
     public int nextInt() {
         return (int)nextLong();
     }
-     
+
     public double nextDouble() {
         return Double.parseDouble(next());
     }
-     
- 
 }
-```
- 
