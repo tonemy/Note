@@ -20,7 +20,7 @@
  - [X] [~~Aizu 0121~~](https://cn.vjudge.net/problem/Aizu-0121)
 3. 穷竭搜索
  - [X] [~~POJ 2718 Smallest Difference~~](https://cn.vjudge.net/problem/POJ-2718#author=s19435631)
- - [ ] POJ 3187
+ - [X] [~~POJ 3187~~](https://cn.vjudge.net/problem/POJ-3187)
  - [ ] POJ 3050
  - [ ] Aizu 0525
 
@@ -39,75 +39,68 @@
 ### 附录：代码
  - 快速读取数据
 ```java
-class FastScanner {
-    private final InputStream in = System.in;
-    private final byte[] buffer = new byte[1024];
-    private int ptr = 0;
-    private int buflen = 0;
-    private boolean hasNextByte() {
-        if (ptr < buflen) {
-            return true;
-        }else{
-            ptr = 0;
-            try {
-                buflen = in.read(buffer);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if (buflen <= 0) {
+class  FastScanner  implements Closeable {
+    private BufferedReader reader;
+    private StringTokenizer tokenizer;
+    public FastScanner(InputStream inputStream) {
+        reader = new BufferedReader(new InputStreamReader(inputStream));
+        tokenizer = new StringTokenizer("");
+    }
+    private String innerNextLine() {
+        try {
+            return reader.readLine();
+        } catch (IOException ex) {
+            return null;
+        }
+    }
+    public boolean hasNext() {
+        while (!tokenizer.hasMoreTokens()) {
+            String nextLine = innerNextLine();
+            if (nextLine == null) {
                 return false;
             }
+            tokenizer = new StringTokenizer(nextLine);
         }
         return true;
     }
-    private int readByte() { if (hasNextByte()) return buffer[ptr++]; else return -1;}
-    private static boolean isPrintableChar(int c) { return 33 <= c && c <= 126;}
-    private void skipUnprintable() { while(hasNextByte() && !isPrintableChar(buffer[ptr])) ptr++;}
-    public boolean hasNext() { skipUnprintable(); return hasNextByte();}
+    public String nextLine() {
+        tokenizer = new StringTokenizer("");
+        return innerNextLine();
+    }
     public String next() {
-        if (!hasNext()) throw new NoSuchElementException();
-        StringBuilder sb = new StringBuilder();
-        int b = readByte();
-        while(isPrintableChar(b)) {
-            sb.appendCodePoint(b);
-            b = readByte();
-        }
-        return sb.toString();
+        hasNext();
+        return tokenizer.nextToken();
     }
-    public long nextLong() {
-        if (!hasNext()) throw new NoSuchElementException();
-        long n = 0;
-        boolean minus = false;
-        int b = readByte();
-        if (b == '-') {
-            minus = true;
-            b = readByte();
-        }
-        if (b < '0' || '9' < b) {
-            throw new NumberFormatException();
-        }
-        while(true){
-            if ('0' <= b && b <= '9') {
-                n *= 10;
-                n += b - '0';
-            }else if(b == -1 || !isPrintableChar(b)){
-                return minus ? -n : n;
-            }else{
-                throw new NumberFormatException();
-            }
-            b = readByte();
-        }
-    }
-     
     public int nextInt() {
-        return (int)nextLong();
+        return Integer.valueOf(next());
     }
-     
     public double nextDouble() {
-        return Double.parseDouble(next());
+        return Double.valueOf(next());
     }
-     
- 
+    public BigInteger nextBigInteger() {
+        return new BigInteger(next());
+    }
+    public void close() throws IOException {
+        reader.close();
+    }
+}
+class FastWriter implements Closeable {
+    private BufferedWriter writer;
+    public FastWriter(OutputStream outputStream) {
+        writer = new BufferedWriter(new OutputStreamWriter(outputStream));
+    }
+    public void print(Object object) throws IOException {
+        writer.write(object.toString());
+        writer.flush();
+    }
+    public void println(Object object) throws IOException {
+        writer.write(object.toString());
+        writer.write("\n");
+        writer.flush();
+    }
+    public void close() throws IOException {
+        writer.close();
+    }
 }
 ```
  
