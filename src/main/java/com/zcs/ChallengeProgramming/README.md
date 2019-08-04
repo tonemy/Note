@@ -19,7 +19,7 @@
  - [X] [~~POJ 3669 Meteor Shower~~](https://cn.vjudge.net/problem/POJ-3669#author=s19435631)
  - [X] [~~Aizu 0121~~](https://cn.vjudge.net/problem/Aizu-0121)
 3. 穷竭搜索
- - [ ]   POJ 2718
+ - [X] [~~POJ 2718 Smallest Difference~~](https://cn.vjudge.net/problem/POJ-2718#author=s19435631)
  - [ ] POJ 3187
  - [ ] POJ 3050
  - [ ] Aizu 0525
@@ -33,6 +33,9 @@
   本题，我做的思路是没有问题的，检查了好久一直没找到错误，哎~~~~！一直运行错误。
 - POJ 3669 Meteor Shower :
   这题好坑哇，java中break只会跳出一层循环，我把bfs的代码单独写出来直接在bsf内部进行return，就可以了
+- POJ 2718 Smallest Difference:
+  读取案例数据时，Scanner.nextInt 读取第一行的int数据后，还有一个 \n ，再次读取下一行需要先使用sc.nextLine忽略它；
+  还有，这题是多测试案例，我的res没有再次重新赋值是一大失误，导致多次wa
 ### 附录：代码
  - 快速读取数据
 ```java
