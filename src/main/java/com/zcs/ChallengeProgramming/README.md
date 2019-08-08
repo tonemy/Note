@@ -4,23 +4,27 @@
 ### 第一章: 蓄势待发
  - [X] [~~POJ 1852 Ants~~ ](https://cn.vjudge.net/problem/POJ-1852)
 ### 第二章：初出茅庐
-1. 深度优先搜索
+2.1 深度优先搜索
  - [X] [~~POJ 2386 Lake Counting~~](https://cn.vjudge.net/problem/POJ-2386)
  - [X] [~~POJ 1979 Red and Black~~](https://cn.vjudge.net/problem/POJ-1979)
  - [X] [~~Aizu 0118 Property Distribution~~](https://cn.vjudge.net/problem/Aizu-0118)
  - [X] [~~Aizu 0033 Ball~~](https://cn.vjudge.net/problem/Aizu-0033)
  - [X] [~~POJ 3009 Curling 2.0~~](https://cn.vjudge.net/problem/POJ-3009)
-2. 宽度优先搜索
+2.2 宽度优先搜索
  - [X] [~~POJ3984 迷宫问题~~](https://cn.vjudge.net/problem/POJ-3984)
  - [X] [~~Aizu 0558 Cheess~~](https://cn.vjudge.net/problem/Aizu-0558)
  - [X] [~~POJ 3669 Meteor Shower~~](https://cn.vjudge.net/problem/POJ-3669#author=s19435631)
  - [X] [~~Aizu 0121 Seven Puzzle~~](https://cn.vjudge.net/problem/Aizu-0121)
-3. 穷竭搜索
+2.3 穷竭搜索
  - [X] [~~POJ 2718 Smallest Difference~~](https://cn.vjudge.net/problem/POJ-2718#author=s19435631)
  - [X] [~~POJ 3187 Backward Digit Sums~~](https://cn.vjudge.net/problem/POJ-3187)
  - [X] [~~POJ 3050 Hopscotch~~](https://cn.vjudge.net/problem/POJ-3050)
  - [X] [~~Aizu 0525~~](https://cn.vjudge.net/problem/Aizu-0525)
- 
+2.4 贪心
+ - [X] [~~Poj 3617 BestCow Line~~](https://cn.vjudge.net/problem/POJ-3617)
+ - [X] [~~Poj 3069 Saruman's Army~~](https://cn.vjudge.net/problem/POJ-3069)
+ - [X] [~~Poj 3253 Fence Repair~~](https://cn.vjudge.net/problem/POJ-3253)
+   
 ### 附录: 笔记
 - POJ 1852 Ants : 
   本题的测试案例中，属于多输入案例，但在每组的第二行数据中，有多少行数据不知道。本来我不经常用Scanner来读取数据，常常使用readLine来读取数据，这次在`不知道多少行只知道多少个时，不知道怎么读取数据`。 
