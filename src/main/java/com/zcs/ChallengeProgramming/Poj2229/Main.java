@@ -1,43 +1,27 @@
-package com.zcs.ChallengeProgramming.Poj3069;
+package com.zcs.ChallengeProgramming.Poj2229;
 
 import java.io.*;
 import java.math.BigInteger;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 /**
- * Created by 张超帅 on 2019/8/8.
+ * Created by 张超帅 on 2019/8/9.
  */
 public class Main {
     public static void main(String[] args) throws IOException {
-        FastScanner sc = new FastScanner(System.in);
+        FastScanner in = new FastScanner(System.in);
         FastWriter out = new FastWriter(System.out);
-        while (sc.hasNext()) {
-            int r = sc.nextInt();
-            int n = sc.nextInt();
-            int res = 0;
-            if(r == -1 && n == -1) {
-                break;
+        int n = in.nextInt();
+        long[] num = new long[n+2];
+        num[1] = 1;
+        for (int i = 2; i <= n; i ++) {
+            if( i % 2 == 0) {
+                num[i] = (num[i-1] + num[i>>1]) % 1000000000;
+            }else {
+                num[i] = num[i-1];
             }
-            int[] num = new int[n];
-            for (int i = 0; i < n; i ++) {
-                num[i] = sc.nextInt();
-            }
-            Arrays.sort(num);
-            int index = 0;
-            while (index < n) {
-                int start = num[index];
-                while (index < n &&  num[index] <= start + r) {
-                    index ++;
-                }
-                start = num[index - 1];
-                while (index <n &&  num[index] <= start + r) {
-                    index ++;
-                }
-                res ++;
-            }
-            out.println(res);
         }
+        out.println(num[n]);
     }
 }
 class  FastScanner  implements Closeable {

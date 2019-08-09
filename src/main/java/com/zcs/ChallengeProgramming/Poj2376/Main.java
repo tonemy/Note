@@ -1,45 +1,71 @@
-package com.zcs.ChallengeProgramming.Poj3069;
+package com.zcs.ChallengeProgramming.Poj2376;
 
 import java.io.*;
 import java.math.BigInteger;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.StringTokenizer;
 
 /**
  * Created by 张超帅 on 2019/8/8.
  */
+
 public class Main {
     public static void main(String[] args) throws IOException {
-        FastScanner sc = new FastScanner(System.in);
+        FastScanner in = new FastScanner(System.in);
         FastWriter out = new FastWriter(System.out);
-        while (sc.hasNext()) {
-            int r = sc.nextInt();
-            int n = sc.nextInt();
-            int res = 0;
-            if(r == -1 && n == -1) {
-                break;
-            }
-            int[] num = new int[n];
-            for (int i = 0; i < n; i ++) {
-                num[i] = sc.nextInt();
-            }
-            Arrays.sort(num);
-            int index = 0;
-            while (index < n) {
-                int start = num[index];
-                while (index < n &&  num[index] <= start + r) {
-                    index ++;
-                }
-                start = num[index - 1];
-                while (index <n &&  num[index] <= start + r) {
-                    index ++;
-                }
-                res ++;
-            }
-            out.println(res);
+        int n = in.nextInt();
+        int t = in.nextInt();
+        Node[] times = new Node[n];
+        for(int i = 0; i < n; i ++) {
+            int s = in.nextInt();
+            int e = in.nextInt();
+            times[i] = new Node(s, e);
         }
+        Arrays.sort(times, new Comparator<Node>() {
+            @Override
+            public int compare(Node o1, Node o2) {
+                if (o1.start != o2.start) {
+                    return o1.start - o2.start;
+                }else {
+                    return o1.end - o2.end;
+                }
+            }
+        });
+        int res = 0, k = 0, s = 0;
+        while (k < n) {
+            if(times[k].start <= s + 1) {
+                res ++;
+                int mx = -1;
+                while (k < n && times[k].start <= s + 1){
+                    mx = Math.max(mx, times[k].end);
+                    k ++;
+                }
+                s = mx;
+                if (s >= t) break;
+            }else {
+                k ++;
+            }
+        }
+        if (s >= t) {
+            out.println(res);
+        }else {
+            out.println(-1);
+        }
+
+
     }
 }
+class Node  {
+    int start;
+    int end;
+
+    public Node(int start, int end) {
+        this.start = start;
+        this.end = end;
+    }
+}
+
 class  FastScanner  implements Closeable {
     private BufferedReader reader;
     private StringTokenizer tokenizer;

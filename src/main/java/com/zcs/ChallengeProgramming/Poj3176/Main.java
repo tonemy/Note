@@ -1,43 +1,29 @@
-package com.zcs.ChallengeProgramming.Poj3069;
+package com.zcs.ChallengeProgramming.Poj3176;
 
 import java.io.*;
 import java.math.BigInteger;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 /**
- * Created by 张超帅 on 2019/8/8.
+ * Created by 张超帅 on 2019/8/9.
  */
 public class Main {
     public static void main(String[] args) throws IOException {
-        FastScanner sc = new FastScanner(System.in);
+        FastScanner in = new FastScanner(System.in);
         FastWriter out = new FastWriter(System.out);
-        while (sc.hasNext()) {
-            int r = sc.nextInt();
-            int n = sc.nextInt();
-            int res = 0;
-            if(r == -1 && n == -1) {
-                break;
+        int n = in.nextInt();
+        int[][] num = new int[n][n];
+        for (int i = 0; i < n; i ++) {
+            for (int j = 0; j < i + 1; j ++) {
+                num[i][j] = in.nextInt();
             }
-            int[] num = new int[n];
-            for (int i = 0; i < n; i ++) {
-                num[i] = sc.nextInt();
-            }
-            Arrays.sort(num);
-            int index = 0;
-            while (index < n) {
-                int start = num[index];
-                while (index < n &&  num[index] <= start + r) {
-                    index ++;
-                }
-                start = num[index - 1];
-                while (index <n &&  num[index] <= start + r) {
-                    index ++;
-                }
-                res ++;
-            }
-            out.println(res);
         }
+        for (int i = n - 1; i >  0; i --) {
+            for (int j = 0; j < i ; j ++) {
+                num[i - 1][j] = Math.max(num[i][j] , num[i][j+1]) + num[i - 1][j];
+            }
+        }
+        out.println(num[0][0]);
     }
 }
 class  FastScanner  implements Closeable {

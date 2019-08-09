@@ -1,45 +1,75 @@
-package com.zcs.ChallengeProgramming.Poj3069;
+package com.zcs.ChallengeProgramming.Poj1328;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.math.BigInteger;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.StringTokenizer;
 
 /**
- * Created by 张超帅 on 2019/8/8.
+ * Created by 张超帅 on 2019/8/9.
  */
 public class Main {
     public static void main(String[] args) throws IOException {
-        FastScanner sc = new FastScanner(System.in);
+        FastScanner in = new FastScanner(System.in);
         FastWriter out = new FastWriter(System.out);
-        while (sc.hasNext()) {
-            int r = sc.nextInt();
-            int n = sc.nextInt();
-            int res = 0;
-            if(r == -1 && n == -1) {
-                break;
-            }
-            int[] num = new int[n];
+        int k = 0;
+        while (in.hasNext()) {
+            int n = in.nextInt();
+            int r = in.nextInt();
+            k ++;
+            if (n == 0 && r == 0) return;
+            Pos[] pos = new Pos[n];
             for (int i = 0; i < n; i ++) {
-                num[i] = sc.nextInt();
+               int x = in.nextInt();
+               int y = in.nextInt();
+               pos[i] = new Pos(x, y);
             }
-            Arrays.sort(num);
-            int index = 0;
-            while (index < n) {
-                int start = num[index];
-                while (index < n &&  num[index] <= start + r) {
-                    index ++;
+            in.nextLine();
+            Arrays.sort(pos, new Comparator<Pos>() {
+                @Override
+                public int compare(Pos o1, Pos o2) {
+                    return o1.x - o2.x;
                 }
-                start = num[index - 1];
-                while (index <n &&  num[index] <= start + r) {
-                    index ++;
+            });
+            int res = 0;
+            for (int i = 0; i < n; ) {
+                if(pos[i].y > r ) {
+                    res = -1;
+                    break;
+                }
+                System.out.println(pos[i].x +"," + pos[i].y);
+                double fx = Math.sqrt(r*r - pos[i].y * pos[i].y) + pos[i].x;
+              //  System.out.println("fx = " + fx);
+                if (Double.doubleToLongBits(Math.sqrt(Math.pow(pos[i].x - fx, 2) + Math.pow(pos[i].y, 2)))
+                        <= Double.doubleToLongBits(Math.sqrt(Math.pow(r, 2)))){
+                    while (i < n && Double.doubleToLongBits(Math.sqrt(Math.pow(pos[i].x - fx, 2) + Math.pow(pos[i].y, 2)))
+                            <= Double.doubleToLongBits(Math.sqrt(Math.pow(r, 2)))){
+                        System.out.println(Math.sqrt(Math.pow(pos[i].x - fx, 2) + Math.pow(pos[i].y, 2)) );
+                      //  System.out.println(Double.doubleToLongBits(Math.sqrt(Math.pow(pos[i].x - fx, 2) + Math.pow(pos[i].y, 2)))
+                       //         <= Double.doubleToLongBits(Math.sqrt(Math.pow(r, 2))));
+                        i ++;
+                    }
+                }else {
+                    i ++;
                 }
                 res ++;
             }
-            out.println(res);
+            out.println("Case "+k+": "+res);
         }
     }
 }
+class Pos {
+    int x;
+    int y;
+
+    public Pos(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+}
+
 class  FastScanner  implements Closeable {
     private BufferedReader reader;
     private StringTokenizer tokenizer;
