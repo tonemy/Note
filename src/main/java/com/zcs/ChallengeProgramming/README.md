@@ -27,9 +27,11 @@
  - [X] [~~Poj 3617 BestCow Line~~](https://cn.vjudge.net/problem/POJ-3617)
  - [X] [~~Poj 3069 Saruman's Army~~](https://cn.vjudge.net/problem/POJ-3069)
  - [X] [~~Poj 3253 Fence Repair~~](https://cn.vjudge.net/problem/POJ-3253)
-   
+ 
 2.5 区间
-   
+ - [X] [~~POJ - 2376 Cleaning Shifts~~](https://cn.vjudge.net/problem/POJ-2376)
+ - [X] [~~POJ - 1328 Radar Installation~~](https://cn.vjudge.net/problem/POJ-1328)
+ - [X] [~~POJ - 3190 https://cn.vjudge.net/problem/POJ-3190~~](https://cn.vjudge.net/problem/POJ-3190)
     
 ### 附录: 笔记
 - POJ 1852 Ants : 

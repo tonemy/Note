@@ -1,80 +1,80 @@
-package com.zcs.ChallengeProgramming.Poj1328;
+package com.zcs.ChallengeProgramming.Poj3190;
+
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.math.BigInteger;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.StringTokenizer;
+import java.util.*;
 
 /**
- * Created by 张超帅 on 2019/8/9.
+ * Created by 张超帅 on 2019/8/10.
  */
 public class Main {
     public static void main(String[] args) throws IOException {
         FastScanner in = new FastScanner(System.in);
         FastWriter out = new FastWriter(System.out);
-        int k = 0;
-        while (in.hasNext()) {
-            int n = in.nextInt();
-            int r = in.nextInt();
-            k ++;
-            if (n == 0 && r == 0) return;
-            Pos[] pos = new Pos[n];
-            boolean flag = false;
-            for (int i = 0; i < n; i ++) {
-               int x = in.nextInt();
-               int y = in.nextInt();
-               if (y > r) {
-                   flag = true;
-               }
-               double fx = Math.sqrt(Math.pow(r, 2) - Math.pow(y, 2));
-               pos[i] = new Pos(x - fx, x + fx);
+        int n = in.nextInt();
+        Cow[] cow = new Cow[n];
+        int[] pos = new int[n];
+        for(int i = 0; i < n; i ++) {
+            int s = in.nextInt();
+            int e = in.nextInt();
+            cow[i] = new Cow(s, e, i);
+        }
+        Arrays.sort(cow, new Comparator<Cow>() {
+            @Override
+            public int compare(Cow o1, Cow o2) {
+                return o1.start - o2.start;
             }
-            Arrays.sort(pos, new Comparator<Pos>() {
-                @Override
-                public int compare(Pos o1, Pos o2) {
-                    if (o1.l >= o2.l ){
-                        return 1;
-                    }else {
-                        return - 1;
-                    }
-                }
-            });
-            in.nextLine();
-//            for(int i = 0; i < n; i ++) {
-//                System.out.println(pos[i].l +"," + pos[i].r);
-//            }
-            int res = 0;
-            for (int i = 0; i < n; ) {
-                double right =  pos[i].r ;
-                if(right >=  pos[i].l)  {
-                    while (i < n && right >=  pos[i].l ) {
-
-                        right = Math.min(pos[i].r, right);
-                        i++;
-                    }
+        });
+        PriorityQueue<Stall> queue = new PriorityQueue<Stall>(n, new Comparator<Stall>() {
+            @Override
+            public int compare(Stall o1, Stall o2) {
+                return o1.over - o2.over;
+            }
+        });
+        int tol = 0;
+        for(int i = 0; i < n; i ++) {
+            if(queue.isEmpty()) {
+                tol ++;
+                queue.offer(new Stall(cow[i].end, tol));
+                pos[cow[i].oriPos]= tol;
+            }else{
+                Stall top = queue.peek();
+                if(top.over < cow[i].start) {
+                    queue.poll();
+                    queue.offer(new Stall(cow[i].end, top.num));
+                    pos[cow[i].oriPos] = top.num;
                 }else {
-                    i ++;
+                    tol ++;
+                    queue.offer(new Stall(cow[i].end, tol));
+                    pos[cow[i].oriPos] = tol;
                 }
-                res ++;
             }
-            if(flag) {
-               res = -1;
-            }
-            out.println("Case "+k+": "+res);
+        }
+        out.println(tol);
+        for (int i = 0; i < n; i ++) {
+            out.println(pos[i]);
         }
     }
 }
-class Pos {
-    double l;
-    double r;
-    public Pos(double l, double r) {
-        this.l = l;
-        this.r = r;
+class Stall {
+    int over;
+    int num;
+    public Stall(int over, int num) {
+        this.over = over;
+        this.num = num;
     }
 }
-
+class  Cow {
+    int start;
+    int end;
+    int oriPos;
+    public Cow(int start, int end, int oriPos) {
+        this.start = start;
+        this.end = end;
+        this.oriPos = oriPos;
+    }
+}
 class  FastScanner  implements Closeable {
     private BufferedReader reader;
     private StringTokenizer tokenizer;
