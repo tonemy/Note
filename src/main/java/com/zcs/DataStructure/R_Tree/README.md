@@ -18,8 +18,8 @@
 
 - 在R-Tree中所有的叶子节点包含了索引记录条目 : (I ,tuple -identifier),I 代表一个n维矩形,
   表示索引的空间对象的边界矩形,   ![RTree](Picture/R_Tree_4.png),其中n代表
-  维度,In-1代表一个闭区间[a,b],描述了索引的空间对象在n-1这个维度的边界; tuple -identifier
-  引用的是一个存放于数据库中的tuple[一条记录]。
+  维度, ![RTree](Picture/R_Tree_5.png)代表一个闭区间[a,b],描述了索引的空间对象在第i个维度的边界; 
+  tuple -identifier引用的是一个存放于数据库中的tuple[一条记录]。
 - 在R-Tree中的所有非叶子节点包含了索引条目: (I, child-pointer),chid-pointer 指向I覆盖的较小
    空间对象的边界矩形的所有条目,那么I也就是覆盖这些较小的空间对象的边界矩形的较大的空间对象的
    的边界矩形。简单的来说child-pointer 就是指向子节点的指针.
@@ -41,10 +41,10 @@
   
   ![RTree](Picture/R_Tree_2.png)
   
-  如上图所示，把第h+1层作为叶子节点的话,第h+1的所有条目即为所有索引记录的条目,即m^(h+1) = N,得出
-  的最大高度h为logm(N) - 1.
-  如上图的第三列即为每层的节点的数量，已知m^(h+1) = N,则可以分别求出m^h= N/m,m^(h-1)= N/(m^2)...,
-  1,然后把其相加就可以了。此时的每个节点的空间利用率即为m/M。
+  如上图所示，把第h+1层作为叶子节点的话,第h+1的所有条目即为所有索引记录的条目,即![RTree](Picture/R_Tree_6.png),得出
+  的最大高度h为 ![RTree](Picture/R_Tree_7.png).
+  如上图的第三列即为每层的节点的数量，已知![RTree](Picture/R_Tree_6.png),则可以分别求出![RTree](Picture/R_Tree_8.png)
+  ,然后把其相加就可以了。此时的每个节点的空间利用率即为m/M。
   
   ![RTree](Picture/R_Tree_1.png)
   
