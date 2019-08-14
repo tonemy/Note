@@ -17,7 +17,7 @@
 **1.2 结构介绍:** 
 
 - 在R-Tree中所有的叶子节点包含了索引记录条目 : (I ,tuple -identifier),I 代表一个n维矩形,
-  表示索引的空间对象的边界矩形,I = (I0、I1、I2、...、In-1) [I 后面代表的下标],其中n代表
+  表示索引的空间对象的边界矩形,   ![RTree](Picture/R_Tree_4.png),其中n代表
   维度,In-1代表一个闭区间[a,b],描述了索引的空间对象在n-1这个维度的边界; tuple -identifier
   引用的是一个存放于数据库中的tuple[一条记录]。
 - 在R-Tree中的所有非叶子节点包含了索引条目: (I, child-pointer),chid-pointer 指向I覆盖的较小
