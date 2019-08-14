@@ -49,3 +49,11 @@
   ![RTree](Picture/R_Tree_1.png)
   
   ![RTree](Picture/R_Tree_3.png)
+
+### 2. R-Tree的搜索
+
+### 3. R-Tree的插入
+
+### 4. R-Tree的删除
+
+### 5. R-Tree的修改
