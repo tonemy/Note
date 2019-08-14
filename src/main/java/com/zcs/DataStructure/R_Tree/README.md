@@ -43,8 +43,8 @@
   
   如上图所示，把第h+1层作为叶子节点的话,第h+1的所有条目即为所有索引记录的条目,即![RTree](Picture/R_Tree_6.png),得出
   的最大高度h为 ![RTree](Picture/R_Tree_7.png).
-  如上图的第三列即为每层的节点的数量，已知![RTree](Picture/R_Tree_6.png),则可以分别求出![RTree](Picture/R_Tree_8.png)
-  ,然后把其相加就可以了。此时的每个节点的空间利用率即为m/M。
+  如上图的第三列即为每层的节点的数量，已知![RTree](Picture/R_Tree_6.png),则可以分别求出每层的节点的数量
+  ![RTree](Picture/R_Tree_8.png),然后把它们相加就可以了。此时的每个节点的空间利用率即为m/M。
   
   ![RTree](Picture/R_Tree_1.png)
   
