@@ -51,8 +51,60 @@
   ![RTree](Picture/R_Tree_3.png)
 
 ### 2. R-Tree的搜索
+**2.1 需要注意的问题:** 
+1) 注意下面字母表示的什么？
+2) 注意对比R-Tree的搜索过程与B-Tree的搜索过程的不同之处?
+3) 注意使用递归思想来写搜索时,其根节点是不断变化的，所以注意一下下面的我所表达的?
+
+**2.2  字母标识:** 
+
+1) E : 一个索引条目(Index Entry)
+2) E.I : 索引条目E记录的空间索引对象的边界矩形
+3) E.p : 指向索引条目（孩子节点）或者索引记录条目(tuple —identifie)的指针
+4) T : R-Tree 的根节点
+5) S : 搜索的区域
+
+**2.3  R-Tree的Search算法:**
+
+- 输入 : 一个S
+- 输出 : 所有与S相交的索引记录条目
+
+1) 搜索子树: 如果T不是一个叶节点，则检查其中的每一个索引条目E，如果E.I与S相交，
+   则对E.p所指向的那个孩子节点的根节点调用Search算法.
+2) 搜索叶子节点: 如果T是一个叶子节点,检查所有的条目,如果E.I与S相交，则E就是一个
+    搜索的索引记录.
+
+**2.4 关键代码(java):**
+```
+    // 叶子节点的搜索
+    private Entry<T, S> searchLeaf(NodePosition<T, S> np) {
+        int i = np.position();
+        Leaf leaf = (Leaf)np.node();
+        do {
+            Entry entry = leaf.entry(i);
+            if(this.condition.test(entry.geometry())) {
+                np.setPosition(i + 1);
+                return entry;
+            }
+            ++i;
+        } while(i < leaf.count());
+        np.setPosition(i);
+        return null;
+    }
+    //非叶子的搜索,这里使用了一个栈来模拟了递归的过程
+    private void searchNonLeaf(NodePosition<T, S> np) {
+        Node child = ((NonLeaf)np.node()).child(np.position());
+        if(this.condition.test(child.geometry())) {
+            this.stack.push(new NodePosition(child, 0));
+        } else {
+            np.setPosition(np.position() + 1);
+        }
+    }
+```
 
 ### 3. R-Tree的插入
+
+
 
 ### 4. R-Tree的删除
 
