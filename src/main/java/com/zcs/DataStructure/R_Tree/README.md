@@ -297,6 +297,17 @@ Add this maven dependency to your pom.xml:
 
 8) 引入完成后就可以将Github上介绍的R-Tree案例，进行使用了.
 
-  ![R_Tree](Picture/R_Tree_23.png)
+ ![R_Tree](Picture/R_Tree_23.png)
+
+### 7. 附录
+ 
+1) R-Tree的一篇被我标注过的论文: [下载地址](https://github.com/tonemy/MyAlgorithm/raw/master/src/main/java/com/zcs/DataStructure/R_Tree/p47-guttman.pdf),网上的大多关于R-Tree的介绍和我写的这个都来源于这篇优秀的
+ IEEE论文.
+2) IDEA中有一个显示类视图的功能，可以方便的查看类之间的关系，以及类里面有什么方法.
+[如何使用的方法，点击这里](https://blog.csdn.net/a236209186/article/details/74529698),看完后，可以尝试着如何显示出上述R-Tree案例中R-Tree这个类中的所有方法？再次尝试下如何显示出Splitter（可以在工程中下面的库中找到）这个接口的所有实现的类以及方法.
+
+3) 如果找到的话是这个样子.
+ ![R_Tree](Picture/R_Tree_25.png)
+ ![R_Tree](Picture/R_Tree_26.png)
 
 
