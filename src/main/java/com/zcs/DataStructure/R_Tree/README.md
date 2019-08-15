@@ -2,14 +2,25 @@
 ## 目录:
 
 - [1. R-Tree的介绍](#1-R-Tree的介绍)
-
+    - [1.1 需要注意的问题](#1.1-需要注意的问题:)
+    - [1.2 结构介绍](#1.2-结构介绍:)
+    - [1.3 R-Tree性质](#1.3-R-Tree性质:)
+    - [1.4 R-Tree属性之间的关系以及对R-Tree的效率影响最大的属性](#1.4-R-Tree属性之间的关系以及对R-Tree的效率影响最大的属性)
 - [2. R-Tree的搜索](#2-R-Tree的搜索)
-
+    - [2.1 需要注意的问题:](#2.1-需要注意的问题:)
+    - [2.2  字母标识:](#2.2-字母标识:)
+    - [2.3  R-Tree的Search算法:](#2.3-R-Tree的Search算法:)
 - [3. R-Tree的插入](#3-R-Tree的插入)
-
+    - [3.1 需要注意的问题](#3.1-需要注意的问题)
+    - [3.2 R-Tree的Insert算法](#3.2-R-Tree的Insert算法)
+    - [3.3 R-Tree的ChooseLeaf算法](#3.3-R-Tree的ChooseLeaf算法)
+    - [3.4 R-Tree的AdjustTree算法](#3.4 R-Tree的AdjustTree算法)
+    - [3.5 R-Tree的SplitNode算法](#3.5 R-Tree的SplitNode算法)
 - [4. R-Tree的删除](#4-R-Tree的删除)
+    - [4.1 R-Tree的Delete算法](#4.1 R-Tree的Delete算法)
 - [5. R-Tree的修改](#5-R-Tree的修改)
 - [6. 在IDEA中使用Maven运行R-Tree](#6-在IDEA中使用Maven运行R-Tree)
+- [7. 附录](#7-附录)
 
 ### 1. R-Tree的介绍
 
@@ -119,7 +130,7 @@
 
 - 这里没有特定的输入形式，可以使用构造函数根据传入的参数而改变.
 - `ChooseLeaf`算法,可以根据具体情况选择不同的方式进行选择,比如: 可以按最小覆盖面积或
-  最小的区域增长的方式或者两者结合的方式.当然需要和分裂算法对应。
+  最小的区域增长的方式或者两者结合的方式。
 
 **3.2 R-Tree的Insert算法:**
 
