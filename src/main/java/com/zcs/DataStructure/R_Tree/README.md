@@ -2,25 +2,28 @@
 ## 目录:
 
 - [1. R-Tree的介绍](#1-R-Tree的介绍)
-    - [1.1 需要注意的问题](#1.1-需要注意的问题:)
-    - [1.2 结构介绍](#1.2-结构介绍:)
-    - [1.3 R-Tree性质](#1.3-R-Tree性质:)
-    - [1.4 R-Tree属性之间的关系以及对R-Tree的效率影响最大的属性](#1.4-R-Tree属性之间的关系以及对R-Tree的效率影响最大的属性)
+    - 1.1 需要注意的问题
+    - 1.2 结构介绍
+    - 1.3 R-Tree性质
+    - 1.4 R-Tree属性之间的关系以及对R-Tree的效率影响最大的属性
 - [2. R-Tree的搜索](#2-R-Tree的搜索)
-    - [2.1 需要注意的问题:](#2.1-需要注意的问题:)
-    - [2.2  字母标识:](#2.2-字母标识:)
-    - [2.3  R-Tree的Search算法:](#2.3-R-Tree的Search算法:)
+    - 2.1 需要注意的问题
+    - 2.2  字母标识
+    - 2.3  R-Tree的Search算法
 - [3. R-Tree的插入](#3-R-Tree的插入)
-    - [3.1 需要注意的问题](#3.1-需要注意的问题)
-    - [3.2 R-Tree的Insert算法](#3.2-R-Tree的Insert算法)
-    - [3.3 R-Tree的ChooseLeaf算法](#3.3-R-Tree的ChooseLeaf算法)
-    - [3.4 R-Tree的AdjustTree算法](#3.4 R-Tree的AdjustTree算法)
-    - [3.5 R-Tree的SplitNode算法](#3.5 R-Tree的SplitNode算法)
+    - 3.1 需要注意的问题
+    - 3.2 R-Tree的Insert算法
+    - 3.3 R-Tree的ChooseLeaf算法
+    - 3.4 R-Tree的AdjustTree算法
+    - 3.5 R-Tree的SplitNode算法
 - [4. R-Tree的删除](#4-R-Tree的删除)
-    - [4.1 R-Tree的Delete算法](#4.1 R-Tree的Delete算法)
+    - 4.1 R-Tree的Delete算法
+    - 4.2 R-Tree的FindLeaf算法
+    - 4.3 R-Tree的CondenseTree算法
 - [5. R-Tree的修改](#5-R-Tree的修改)
 - [6. 在IDEA中使用Maven运行R-Tree](#6-在IDEA中使用Maven运行R-Tree)
 - [7. 附录](#7-附录)
+    - 7.1 R-Tree论文下载
 
 ### 1. R-Tree的介绍
 
