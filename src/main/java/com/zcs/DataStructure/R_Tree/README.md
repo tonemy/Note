@@ -1,13 +1,15 @@
 
 ## 目录:
 
-- [1. R-Tree的介绍](#1. R-Tree的介绍)
+- [1. R-Tree的介绍](#1-R-Tree的介绍)
 
-- [2. R-Tree的搜索](#2. R-Tree的搜索)
+- [2. R-Tree的搜索](#2-R-Tree的搜索)
 
-- [3. R-Tree的插入](#3. R-Tree的插入)
+- [3. R-Tree的插入](#3-R-Tree的插入)
 
-- [4. R-Tree的删除](#4. R-Tree的删除)
+- [4. R-Tree的删除](#4-R-Tree的删除)
+- [5. R-Tree的修改](#5-R-Tree的修改)
+- [6. 在IDEA中使用Maven运行R-Tree](#6-在IDEA中使用Maven运行R-Tree)
 
 ### 1. R-Tree的介绍
 
@@ -221,5 +223,80 @@
 
 1) 利用上方的算法，相应的索引记录被删除、更新、然后重新插入操作
 
+
+
+### 6. 在IDEA中使用Maven运行R-Tree
+
+1) 运行环境: jdk-1.80及latter,Windows 10
+
+- 使用`Win+R`打开cmd命令窗口,输入`java -version`,查看jdk的版本
+
+```
+    java version "1.8.0_221"
+    Java(TM) SE Runtime Environment (build 1.8.0_221-b11)
+    Java HotSpot(TM) 64-Bit Server VM (build 25.221-b11, mixed mode)
+```
+2) IDEA 的jdk 配置:
+
+- 配置步骤: [详细地址](https://jingyan.baidu.com/album/bea41d43a3b5edb4c51be6b6.html?picindex=1)
+- 如果配置成功,如下面所示：
+  ![R_Tree](Picture/R_Tree_17.png)
+
+3) 解决IDEA下maven下载插件缓慢的问题: 
+- 一般使用默认的IDEA自带的maven就行 
+- 解决步骤: [详细地址](https://blog.csdn.net/qq1501340219/article/details/54638158)
+- 上面博客所指的setting.xml文件的位置可以在这里找到，在IDEA中使用快捷键`Ctrl+Alt+S`打开设置，搜索Maven,如下图所示
+   的位置.
+ ![R_Tree](Picture/R_Tree_18.png)
+ 
+4) 在IDEA中新建Maven工程:
+
+- File -> New -> Project -> Maven :
+
+- 填写GroupID (组名: 一般是com.xxx) ,ArtifictId(一般为建的工程名)，然后next，next，finally就可以
+
+- 建立成功，如图所示:
+ ![R_Tree](Picture/R_Tree_19.png)
+
+5) 在github上找个java 的R-Tree代码
+
+- [Github上的支持java1.8的R-Tree的源码地址](https://github.com/davidmoten/rtree2)
+
+- 在下面的介绍中找到这段介绍:
+``` 
+Add this maven dependency to your pom.xml:
+
+    <dependency>
+      <groupId>com.github.davidmoten</groupId>
+      <artifactId>rtree2</artifactId>
+      <version>VERSION_HERE</version>
+    </dependency>
+
+```
+- 注意：上面的依赖地址中<version>没有直接给出，可以根据如下所示的指引找到:
+
+ ![R_Tree](Picture/R_Tree_21.png)
+ 
+ ![R_Tree](Picture/R_Tree_22.png)
+6) 在工程中的pom.xml文件里添加 上图所示的R-Tree的maven依赖的地址及版本,注意外部需要加个  
+    <dependencies>标签:
+
+```
+    <dependencies>
+        <dependency>
+            <groupId>com.github.davidmoten</groupId>
+            <artifactId>rtree2</artifactId>
+            <version>0.9-RC1</version>
+        </dependency>
+    </dependencies>
+
+```
+7) 成功后便可在工程中看到R-Tree的依赖的jar，如图所示
+
+ ![R_Tree](Picture/R_Tree_20.png)
+
+8) 引入完成后就可以将Github上介绍的R-Tree案例，进行使用了.
+
+  ![R_Tree](Picture/R_Tree_23.png)
 
 
