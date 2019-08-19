@@ -3,7 +3,7 @@
 
 **注意:**
 - 要选择支持Hadoop的相应的版本的进行下载,也就是与Hadoop的版本要兼容,同时还有可进行扩展的jar包
-- 我是用的是搭建在 Centos 上的集群,所以下面描述的命令均在Centos上
+- 我是用的是搭建在 Centos 上的Hadoop集群,所以下面描述的相关命令均在Centos上
 
 1) SpatialHadoop 下载地址: [点击这里](http://spatialhadoop.cs.umn.edu/#downloads)
 

@@ -26,6 +26,7 @@
 
 2.4 贪心
 - [X] [~~Poj 3617 BestCow Line~~](https://cn.vjudge.net/problem/POJ-3617)
+- [X] [~~Poj 3040 Allowance~~](https://cn.vjudge.net/problem/POJ-3040)
 - [X] [~~Poj 3069 Saruman's Army~~](https://cn.vjudge.net/problem/POJ-3069)
 - [X] [~~Poj 3253 Fence Repair~~](https://cn.vjudge.net/problem/POJ-3253)
  
