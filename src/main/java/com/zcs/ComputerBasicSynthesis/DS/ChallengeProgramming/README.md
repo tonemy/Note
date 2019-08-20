@@ -25,6 +25,7 @@
 - [X] [~~Aizu 0525~~](https://cn.vjudge.net/problem/Aizu-0525)
 
 2.4 贪心
+- [X] [~~Poj 2393 Yogurt factory~~](https://cn.vjudge.net/problem/POJ-2393)
 - [X] [~~Poj 3617 BestCow Line~~](https://cn.vjudge.net/problem/POJ-3617)
 - [X] [~~Poj 3040 Allowance~~](https://cn.vjudge.net/problem/POJ-3040)
 - [X] [~~Poj 3069 Saruman's Army~~](https://cn.vjudge.net/problem/POJ-3069)
