@@ -41,6 +41,9 @@
 - [X] [~~POJ 3262 Protecting the Flowers~~](https://cn.vjudge.net/problem/POJ-3262)
 - [X] [~~POJ 1017 Packets~~](https://cn.vjudge.net/problem/POJ-1017#author=BlueLine) 
     
+2.7 动态规划
+- [X] [~~OpenOj 2945 导弹拦截~~](https://cn.vjudge.net/problem/315252/origin)
+
 ### 附录: 笔记
 - POJ 1852 Ants : 
   本题的测试案例中，属于多输入案例，但在每组的第二行数据中，有多少行数据不知道。本来我不经常用Scanner来读取数据，常常使用readLine来读取数据，这次在`不知道多少行只知道多少个时，不知道怎么读取数据`。 
