@@ -14,7 +14,9 @@ public class Main {
         PrintWriter out = new PrintWriter(System.out);
         Task task = new Task();
         task.solve(in, out);
-        // 测试数据 : 3 2 1 4 5 6 7 8
+        // 测试数据 :
+        // 8
+        // 3 2 1 4 5 6 7 8 (注意先后的顺序)
         out.close();
     }
     static class Task {

@@ -31,18 +31,23 @@
 - [X] [~~Poj 3069 Saruman's Army~~](https://cn.vjudge.net/problem/POJ-3069)
 - [X] [~~Poj 3253 Fence Repair~~](https://cn.vjudge.net/problem/POJ-3253)
  
-2.5 区间
+2.5 区间贪心
 - [X] [~~POJ 2376 Cleaning Shifts~~](https://cn.vjudge.net/problem/POJ-2376)
 - [X] [~~POJ 1328 Radar Installation~~](https://cn.vjudge.net/problem/POJ-1328)
 - [X] [~~POJ 3190 Stall Reservations~~](https://cn.vjudge.net/problem/POJ-3190)
 
-2.6 其它
+2.6 其它贪心
 - [X] [~~POJ 1862 Stripies~~](https://cn.vjudge.net/problem/POJ-1862)
 - [X] [~~POJ 3262 Protecting the Flowers~~](https://cn.vjudge.net/problem/POJ-3262)
 - [X] [~~POJ 1017 Packets~~](https://cn.vjudge.net/problem/POJ-1017#author=BlueLine) 
     
 2.7 动态规划
+
 - [X] [~~OpenOj 2945 导弹拦截~~](https://cn.vjudge.net/problem/315252/origin)
+- [X] [~~Poj 2385 Apple Catching~~](https://cn.vjudge.net/problem/POJ-2385)
+- [X] [~~Poj 2229 Sumsets~~](https://cn.vjudge.net/problem/POJ-2229)
+- [X] [~~Poj 3176 Cow Bowling~~](https://cn.vjudge.net/problem/POJ-3176)
+
 
 ### 附录: 笔记
 - POJ 1852 Ants : 
