@@ -71,78 +71,79 @@ hadoop jar spatialhadoop-2.4.3-SNAPSHOT.jar readfile test2.grid
 
 
 ### Q&A
-1) 使用git下载spatialhadoop后, 在右侧栏中的maven功能窗口总出现这个错误: `- Missing artifact jdk.tools:jdk.tools:jar:1.6)`
+**问题一:**
 
-   - 解决办法 
-      - [参考网址](http://www.it1352.com/843130.html)
-      - 主要在pom.xml中添加了相关的依赖,我系统本身jdk是1.8,但我按照这个网址上的添加后依然会报错提示:`1.6 和1.8 有矛盾`,然后我的添加配置如下
-      - 关于那个<systemPath> 我使用,${JAVA_HOME}还是获取不到,而且我的系统环境变量配置的无错误,但依旧获取不到,然后我就改为了绝对路径.
-      ```
-      <dependency>
-          <groupId>jdk.tools</groupId>
-          <artifactId>jdk.tools</artifactId>
-          <version>1.6</version>
-          <scope>system</scope>
-          <systemPath>D:/java/lib/tools.jar</systemPath>
-      </dependency>
-      ```
-1) bin/shadoop readfile test.grid 读取文件出错
+>使用git下载spatialhadoop后, 在右侧栏中的maven功能窗口总出现这个错误: `- Missing artifact jdk.tools:jdk.tools:jar:1.6)`
+
+- **解决办法**
+- [参考网址](http://www.it1352.com/843130.html)
+主要在pom.xml中添加了相关的依赖,我系统本身jdk是1.8,但我按照这个网址上的添加后依然会报错提示:`1.6 和1.8 有矛盾`,然后我的添加配置如下
+关于那个<systemPath> 我使用,${JAVA_HOME}还是获取不到,而且我的系统环境变量配置的无错误,但依旧获取不到,然后我就改为了绝对路径.
+- 到最后使用maven在centos上编译成功时,发现这个其实不修改也是可以.
 
 ```
-[MHadoop@master hadoop]$ bin/shadoop readfile test.grid
-java.lang.ArithmeticException: / by zero
-	at edu.umn.cs.spatialHadoop.operations.LocalSampler.sampleLocal(LocalSampler.java:101)
-	at edu.umn.cs.spatialHadoop.operations.LocalSampler.sampleLocal(LocalSampler.java:72)
-	at edu.umn.cs.spatialHadoop.OperationsParams.autoDetectShape(OperationsParams.java:621)
-	at edu.umn.cs.spatialHadoop.OperationsParams.getShape(OperationsParams.java:341)
-	at edu.umn.cs.spatialHadoop.OperationsParams.getShape(OperationsParams.java:346)
-	at edu.umn.cs.spatialHadoop.OperationsParams.<init>(OperationsParams.java:92)
-	at edu.umn.cs.spatialHadoop.OperationsParams.<init>(OperationsParams.java:85)
-	at edu.umn.cs.spatialHadoop.ReadFile.main(ReadFile.java:35)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:606)
-	at org.apache.hadoop.util.ProgramDriver$ProgramDescription.invoke(ProgramDriver.java:71)
-	at org.apache.hadoop.util.ProgramDriver.run(ProgramDriver.java:144)
-	at org.apache.hadoop.util.ProgramDriver.driver(ProgramDriver.java:152)
-	at edu.umn.cs.spatialHadoop.operations.Main.main(Main.java:137)
+<dependency>
+  <groupId>jdk.tools</groupId>
+  <artifactId>jdk.tools</artifactId>
+  <version>1.6</version>
+  <scope>system</scope>
+  <systemPath>D:/java/lib/tools.jar</systemPath>
+</dependency>
 ```
-   - 解决办法:
-       - 一开始,我在hadoop集群中的一个master节点中，中解压的spatialHadoop的jar包的,奇怪的是，官网上的前两个命令可以运行,剩下的就不可以了
-        就报和上面类似的错误,后来我看了一篇老外写的博客[地址](http://aseldawy.blogspot.com/2015/01/installing-spatialhadoop-on-existing.html).这篇写了spatailHadoop是如何安装在Hadoop的？
-        写了两种方式,我使用的是和官网给出的方式一样,还有一种是使用hadoop jar 运行的方式。从这篇博客得到spatailHadoop是需要部署到每个节点的。:)
-       - 哈哈，后来觉得这个错误的真正原因是: 这个文件是空的.
-2) 绘制图出错
+
+**问题二:**
+> 从git上获取得到spatialHadoop的源文件后,使用Maven的命令【mvn compile】编译源码后未出错,但使用【mvn assembly:assembly】打包时出了好多错误信息.
+> 一直没有打包成功.
+
+- **解决办法:**
+- [这篇博客提醒了我](https://extendswind.top/posts/technical/spatialhadoop_compile_and_run/)
+- 无意中看到这篇博客中提到,这个spatialHadoop的源码在使用【mvn assembly:assembly】打包时,其源码中的测试的相关类会出现错误.
+  于是乎,我尝试在打包时忽略这些测试的文件,那么怎么在打包时忽略这些文件呢?那就要找Maven在打包时怎么忽略测试文件就行.在pom.xml中添加
+  如下配置.
 ```
-[MHadoop@master datas]$ hadoop jar spatialhadoop-2.4.3-SNAPSHOT.jar gplot test_Output.rtree/_master.rtree 8-28-1.png shape:edu.umn.cs.spatialHadoop.indexing.Partition  color:red
-  19/08/28 16:48:56 INFO mapreduce.RTreeRecordReader3: Open a SpatialRecordReader to split: test_Output.rtree/_master.rtree:0+99
-  java.lang.RuntimeException: Incorrect signature for RTree
-  	at edu.umn.cs.spatialHadoop.mapreduce.RTreeRecordReader3.initialize(RTreeRecordReader3.java:148)
-  	at edu.umn.cs.spatialHadoop.visualization.SingleLevelPlot$1.run(SingleLevelPlot.java:559)
-  	at edu.umn.cs.spatialHadoop.visualization.SingleLevelPlot$1.run(SingleLevelPlot.java:537)
-  	at edu.umn.cs.spatialHadoop.util.Parallel.forEach(Parallel.java:84)
-  	at edu.umn.cs.spatialHadoop.util.Parallel.forEach(Parallel.java:65)
-  	at edu.umn.cs.spatialHadoop.visualization.SingleLevelPlot.plotLocal(SingleLevelPlot.java:537)
-  	at edu.umn.cs.spatialHadoop.visualization.SingleLevelPlot.plot(SingleLevelPlot.java:643)
-  	at edu.umn.cs.spatialHadoop.visualization.GeometricPlot.plot(GeometricPlot.java:117)
-  	at edu.umn.cs.spatialHadoop.visualization.GeometricPlot.main(GeometricPlot.java:219)
-  	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-  	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
-  	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-  	at java.lang.reflect.Method.invoke(Method.java:606)
-  	at org.apache.hadoop.util.ProgramDriver$ProgramDescription.invoke(ProgramDriver.java:71)
-  	at org.apache.hadoop.util.ProgramDriver.run(ProgramDriver.java:144)
-  	at org.apache.hadoop.util.ProgramDriver.driver(ProgramDriver.java:152)
-  	at edu.umn.cs.spatialHadoop.operations.Main.main(Main.java:137)
-  	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-  	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
-  	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-  	at java.lang.reflect.Method.invoke(Method.java:606)
-  	at org.apache.hadoop.util.RunJar.run(RunJar.java:221)
-  	at org.apache.hadoop.util.RunJar.main(RunJar.java:136)
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.4.2</version>
+        <configuration>
+          <skipTests>true</skipTests>
+        </configuration>
+    </plugin>
+
 ```
-3)
+- 如果打包成功,怎会在项目中的target目录下看到有如下文件:
+```
+    [MHadoop@master spatialhadoop2]$ cd target/
+    [MHadoop@master target]$ ls
+    apidocs                 maven-status
+    archive-tmp             spatialhadoop-2.4.3-SNAPSHOT-bin.tar.gz
+    classes                 spatialhadoop-2.4.3-SNAPSHOT.jar
+    generated-sources       spatialhadoop-2.4.3-SNAPSHOT-javadoc.jar
+    generated-test-sources  spatialhadoop-2.4.3-SNAPSHOT-sources.jar
+    javadoc-bundle-options  spatialhadoop-2.4.3-SNAPSHOT-uber.jar
+    maven-archiver          test-classes
+
+```
+
+**问题三:**
+
+>在我使用mvn编译-打包完成后,我将这个`spatialhadoop-2.4.3-SNAPSHOT-bin.tar.gz`解压到hadoop集群的各个节点的$HADOOP_HOME的目录下后,
+>准备使用`bin/shadoop`进行测试时,总出现如下面显示的这个错误.
+>
+>[MHadoop@master hadoop]$ bin/shadoop
+>
+>: 没有那个文件或目录
+>
+ 
+
+- **解决办法**
+- 我在网上搜了一些关于这个问题的解决方法,但和我这个情况不太相符.我把网上说的问题压缩了一下：大多都是在说是这个shadoop文件的编码格式问题.
+  于是乎,我把我第一次在官网上下载的jar包中bin下的shadoop文件替换了它,然后它就能运行了.
+
+**问题四:**
+> 在我使用 `bin/shadoop hadoopviz`,在前端看可视化的点后,使用`ctrl + Z/C`结束此时的命令后,再次使用`bin/shadoop hadoopviz`
+> 就会提示端口8889地址被占用的问题,如何解决呢?如下所示:
+- 错误信息
 ```
 [MHadoop@master datas]$ hadoop jar spatialhadoop-2.4.3-SNAPSHOT.jar hadoopviz
 19/08/28 17:46:11 INFO mortbay.log: Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
@@ -178,43 +179,105 @@ java.net.BindException: 地址已在使用
 	at java.lang.reflect.Method.invoke(Method.java:606)
 	at org.apache.hadoop.util.RunJar.run(RunJar.java:221)
 	at org.apache.hadoop.util.RunJar.main(RunJar.java:136)
-```
-**解决办法:**
-```
-[MHadoop@master datas]$ lsof -i:8889
-COMMAND  PID    USER   FD   TYPE  DEVICE SIZE/OFF NODE NAME
-java    1301 MHadoop  196u  IPv4 3654346      0t0  TCP *:ddi-tcp-2 (LISTEN)
-java    1301 MHadoop  197u  IPv4 3668461      0t0  TCP master.hadoop:ddi-tcp-2->172.21.3.78:53161 (CLOSE_WAIT)
-java    1301 MHadoop  198u  IPv4 3668462      0t0  TCP master.hadoop:ddi-tcp-2->172.21.3.78:53162 (CLOSE_WAIT)
-java    1301 MHadoop  199u  IPv4 3660926      0t0  TCP master.hadoop:ddi-tcp-2->172.21.3.78:53164 (CLOSE_WAIT)
-java    1301 MHadoop  200u  IPv4 3668463      0t0  TCP master.hadoop:ddi-tcp-2->172.21.3.78:53165 (CLOSE_WAIT)
-java    1301 MHadoop  201u  IPv4 3668464      0t0  TCP master.hadoop:ddi-tcp-2->172.21.3.78:53166 (CLOSE_WAIT)
-java    1301 MHadoop  202u  IPv4 3668465      0t0  TCP master.hadoop:ddi-tcp-2->172.21.3.78:53167 (CLOSE_WAIT)
-[MHadoop@master datas]$ lsof -i:1301
-[MHadoop@master datas]$ kill -9 1301
-[MHadoop@master datas]$ lsof -i:1301
-[1]+  已杀死               hadoop jar spatialhadoop-2.4.3-SNAPSHOT.jar hadoopviz
-[MHadoop@master datas]$ lsof -i:8889
-```
-
-3) 绘制索引图时总报这个错误
-```shell script
  
-    19/08/22 10:10:04 INFO mapreduce.Job: Task Id : attempt_1566384496226_0016_m_000093_1, Status : FAILED
-    Error: java.lang.NumberFormatException: empty String
-        at sun.misc.FloatingDecimal.readJavaFormatString(FloatingDecimal.java:1020)
-        at java.lang.Double.parseDouble(Double.java:540)
-        at edu.umn.cs.spatialHadoop.io.TextSerializerHelper.consumeDouble(TextSerializerHelper.java:182)
-        at edu.umn.cs.spatialHadoop.core.Rectangle.fromText(Rectangle.java:286)
-        at edu.umn.cs.spatialHadoop.operations.Sampler$Map.map(Sampler.java:122)
-        at edu.umn.cs.spatialHadoop.operations.Sampler$Map.map(Sampler.java:69)
-        at org.apache.hadoop.mapred.MapRunner.run(MapRunner.java:54)
-        at org.apache.hadoop.mapred.MapTask.runOldMapper(MapTask.java:450)
-        at org.apache.hadoop.mapred.MapTask.run(MapTask.java:343)
-        at org.apache.hadoop.mapred.YarnChild$2.run(YarnChild.java:163)
-        at java.security.AccessController.doPrivileged(Native Method)
-        at javax.security.auth.Subject.doAs(Subject.java:415)
-        at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1692)
-        at org.apache.hadoop.mapred.YarnChild.main(YarnChild.java:158)
+```
+- **解决办法:**
+ ```
+ [MHadoop@master datas]$ lsof -i:8889
+ COMMAND  PID    USER   FD   TYPE  DEVICE SIZE/OFF NODE NAME
+ java    1301 MHadoop  196u  IPv4 3654346      0t0  TCP *:ddi-tcp-2 (LISTEN)
+ java    1301 MHadoop  197u  IPv4 3668461      0t0  TCP master.hadoop:ddi-tcp-2->172.21.3.78:53161 (CLOSE_WAIT)
+ java    1301 MHadoop  198u  IPv4 3668462      0t0  TCP master.hadoop:ddi-tcp-2->172.21.3.78:53162 (CLOSE_WAIT)
+ java    1301 MHadoop  199u  IPv4 3660926      0t0  TCP master.hadoop:ddi-tcp-2->172.21.3.78:53164 (CLOSE_WAIT)
+ java    1301 MHadoop  200u  IPv4 3668463      0t0  TCP master.hadoop:ddi-tcp-2->172.21.3.78:53165 (CLOSE_WAIT)
+ java    1301 MHadoop  201u  IPv4 3668464      0t0  TCP master.hadoop:ddi-tcp-2->172.21.3.78:53166 (CLOSE_WAIT)
+ java    1301 MHadoop  202u  IPv4 3668465      0t0  TCP master.hadoop:ddi-tcp-2->172.21.3.78:53167 (CLOSE_WAIT)
+ [MHadoop@master datas]$ lsof -i:1301
+ [MHadoop@master datas]$ kill -9 1301
+ [MHadoop@master datas]$ lsof -i:1301
+ [1]+  已杀死               hadoop jar spatialhadoop-2.4.3-SNAPSHOT.jar hadoopviz
+ [MHadoop@master datas]$ lsof -i:8889
+ ```
+
+**问题五:**
+ >bin/shadoop readfile test.grid 读取文件出错,
+- 报错信息:
+```
+[MHadoop@master hadoop]$ bin/shadoop readfile test.grid
+java.lang.ArithmeticException: / by zero
+	at edu.umn.cs.spatialHadoop.operations.LocalSampler.sampleLocal(LocalSampler.java:101)
+	at edu.umn.cs.spatialHadoop.operations.LocalSampler.sampleLocal(LocalSampler.java:72)
+	at edu.umn.cs.spatialHadoop.OperationsParams.autoDetectShape(OperationsParams.java:621)
+	at edu.umn.cs.spatialHadoop.OperationsParams.getShape(OperationsParams.java:341)
+	at edu.umn.cs.spatialHadoop.OperationsParams.getShape(OperationsParams.java:346)
+	at edu.umn.cs.spatialHadoop.OperationsParams.<init>(OperationsParams.java:92)
+	at edu.umn.cs.spatialHadoop.OperationsParams.<init>(OperationsParams.java:85)
+	at edu.umn.cs.spatialHadoop.ReadFile.main(ReadFile.java:35)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.hadoop.util.ProgramDriver$ProgramDescription.invoke(ProgramDriver.java:71)
+	at org.apache.hadoop.util.ProgramDriver.run(ProgramDriver.java:144)
+	at org.apache.hadoop.util.ProgramDriver.driver(ProgramDriver.java:152)
+	at edu.umn.cs.spatialHadoop.operations.Main.main(Main.java:137)
+```
+- **解决办法:**
+   - 一开始,我在hadoop集群中的一个master节点中，中解压的spatialHadoop的jar包的,奇怪的是，官网上的前两个命令可以运行,剩下的就不可以了
+    就报和上面类似的错误,后来我看了一篇老外写的博客[地址](http://aseldawy.blogspot.com/2015/01/installing-spatialhadoop-on-existing.html).这篇写了spatailHadoop是如何安装在Hadoop的？
+    写了两种方式,我使用的是和官网给出的方式一样,还有一种是使用hadoop jar 运行的方式。从这篇博客得到spatailHadoop是需要部署到每个节点的。:)
+   - 哈哈，后来觉得这个错误的真正原因是: 这个文件是空的.
+   
+**问题六:**   
+
+>使用命令 gplot  绘制索引图时出错
+- 报错信息如下:
 
 ```
+[MHadoop@master datas]$ hadoop jar spatialhadoop-2.4.3-SNAPSHOT.jar gplot test_Output.rtree/_master.rtree 8-28-1.png shape:edu.umn.cs.spatialHadoop.indexing.Partition  color:red
+  19/08/28 16:48:56 INFO mapreduce.RTreeRecordReader3: Open a SpatialRecordReader to split: test_Output.rtree/_master.rtree:0+99
+  java.lang.RuntimeException: Incorrect signature for RTree
+  	at edu.umn.cs.spatialHadoop.mapreduce.RTreeRecordReader3.initialize(RTreeRecordReader3.java:148)
+  	at edu.umn.cs.spatialHadoop.visualization.SingleLevelPlot$1.run(SingleLevelPlot.java:559)
+  	at edu.umn.cs.spatialHadoop.visualization.SingleLevelPlot$1.run(SingleLevelPlot.java:537)
+  	at edu.umn.cs.spatialHadoop.util.Parallel.forEach(Parallel.java:84)
+  	at edu.umn.cs.spatialHadoop.util.Parallel.forEach(Parallel.java:65)
+  	at edu.umn.cs.spatialHadoop.visualization.SingleLevelPlot.plotLocal(SingleLevelPlot.java:537)
+  	at edu.umn.cs.spatialHadoop.visualization.SingleLevelPlot.plot(SingleLevelPlot.java:643)
+  	at edu.umn.cs.spatialHadoop.visualization.GeometricPlot.plot(GeometricPlot.java:117)
+  	at edu.umn.cs.spatialHadoop.visualization.GeometricPlot.main(GeometricPlot.java:219)
+  	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+  	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+  	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+  	at java.lang.reflect.Method.invoke(Method.java:606)
+  	at org.apache.hadoop.util.ProgramDriver$ProgramDescription.invoke(ProgramDriver.java:71)
+  	at org.apache.hadoop.util.ProgramDriver.run(ProgramDriver.java:144)
+  	at org.apache.hadoop.util.ProgramDriver.driver(ProgramDriver.java:152)
+  	at edu.umn.cs.spatialHadoop.operations.Main.main(Main.java:137)
+  	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+  	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+  	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+  	at java.lang.reflect.Method.invoke(Method.java:606)
+  	at org.apache.hadoop.util.RunJar.run(RunJar.java:221)
+  	at org.apache.hadoop.util.RunJar.main(RunJar.java:136)
+```
+- **解决办法:**
+- 该进行索引绘图的问题虽没真正解决,但这个`java.lang.RuntimeException: Incorrect signature for RTree`报错也算告一段落了,
+   此时的spatialHadoop为官网上给出的jar包,我使用了Maven编译后的jar进行尝试,就没出现这个错误提示了.
+   
+**问题七:**
+
+>这个错误,出现在我使用yum下载[QGIS](https://www.qgis.org/en/site/forusers/download.html)安装包时爆出的错误.我嫌下载的有点慢,中途直接`ctrl+Z/C`
+>停了,后来才知道没网了才这么慢.
+>
+>/var/run/yum.pid 已被锁定，PID 为 xxxx 的另一个程序正在运行的问题解决
+
+- **解决办法:**
+- 运行一下这个命令,`rm -f /var/run/yum.pid`,删除此时被锁的文件
+
+
+
+ 
+ 
+ 
+ 
