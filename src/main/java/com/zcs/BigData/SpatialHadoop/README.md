@@ -140,8 +140,8 @@ hadoop jar spatialhadoop-2.4.3-SNAPSHOT.jar readfile test2.grid
 
 **参考的论文:**
 
-- 
-- 
+- [Manikis_Michalis.pdf](https://github.com/tonemy/Note/blob/master/src/main/java/com/zcs/BigData/SpatialHadoop/Manikis_Michalis.pdf)
+- [SpatialHadoop_A MapReduce Framework for spatial data.pdf](https://github.com/tonemy/Note/blob/master/src/main/java/com/zcs/BigData/SpatialHadoop/SpatialHadoop_A%20MapReduce%20Framework%20for%20spatial%20data.pdf)
 
 
 **问题一:**
