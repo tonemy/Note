@@ -126,9 +126,14 @@ hadoop jar spatialhadoop-2.4.3-SNAPSHOT.jar readfile test2.grid
             - 点击OK
             - 选择 `WGS 84`
             
-3)  hadoop jar spatialhadoop-2.4.3-SNAPSHOT.jar hadoopviz
+3)  bin/shadoop rangequery <input> <output> shape:<input format> rect:<rectangle> -overwrite
+    - 主要参数
+        - `<input>`:输入文件的路径,如果是已经被索引的生成,则搜索时间会较短
+        - `shape:<input format>`: 输入文件的数据的类型
+        - `rect:<rectangle>` : x1,x2,y1,y2 ,所搜索矩形的范围
+4)  hadoop jar spatialhadoop-2.4.3-SNAPSHOT.jar hadoopviz
 
-4) 其它的参考: [这个吧](https://github.com/aseldawy/spatialhadoop2/wiki/A-list-of-most-operations-in-SpatialHadoop)
+5) 其它的参考: [这个吧](https://github.com/aseldawy/spatialhadoop2/wiki/A-list-of-most-operations-in-SpatialHadoop)
  
  
 
