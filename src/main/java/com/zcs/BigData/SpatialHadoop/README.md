@@ -44,33 +44,106 @@ hadoop jar spatialhadoop-2.4.3-SNAPSHOT.jar readfile test2.grid
 
 6) 其 hadoop jar spatialhadoop-2.4.3-SNAPSHAT.jar 就相当于 方式一中的bin/shadoop命令.官网上给的 命令都可以尝试一下
 
+#### 1.3方式三
+**注意的问题:**
+
+- 这种方式还是以方式二为基础的,只不过换了个操作系统,`Windows 10 -> Centos 7`,主要因为在windows上hadoop的相关依赖在打包时一直报错
+- 在使用maven进行编译时会出现一些问题,我遇到的问题已经在附录中进行了补充.
+
+1) 下载可以运行在centos系统的jar包,[apache-maven-3.6.1-bin.tar.gz](http://mirror.bit.edu.cn/apache/maven/maven-3/3.6.1/binaries/apache-maven-3.6.1-bin.tar.gz)
+2) 安装方式: [点击这里](https://maven.apache.org/install.html)
+3) 前提是你已经配置好了jdk的环境变量,配置Maven的环境变量,在`/etc/profile `或`/etc/bashrc`中添加如下配置:
+
+    ```
+    #set maven
+    
+    export MAVEN_HOME=/usr/hadoop/datas/apache-maven-3.6.1
+    export PATH=$PATH:$MAVEN_HOME/bin
+    
+    ```
+
+4) 保存生效:【source /etc/bashrc】
+5) 检测Maven是否安装成功:【mvn -v】
+
+    ```
+    [root@master ~]# mvn -v
+    Apache Maven 3.6.1 (d66c9c0b3152b2e69ee9bac180bb8fcc8e6af555; 2019-04-05T03:00:29+08:00)
+    Maven home: /usr/hadoop/datas/apache-maven-3.6.1
+    Java version: 1.7.0_80, vendor: Oracle Corporation, runtime: /usr/java/jdk1.7.0_80/jre
+    Default locale: zh_CN, platform encoding: UTF-8
+    OS name: "linux", version: "3.10.0-693.el7.x86_64", arch: "amd64", family: "unix"
+    
+    ```
+6) 从git上下载spatialHadoop的源码文件,[地址](https://github.com/aseldawy/spatialhadoop2)
+7) 修改pom.xml的文件内容,主要修改hadoop的版本信息,要和你的Hadoop版本相同
+8) 进入spatialHadoop目录下,使用maven编译【mvn compile】,打包【mvn assembly:assembly】,成功后就可以看到如下jar包
+    ```
+      [MHadoop@master spatialhadoop2]$ cd target/
+        [MHadoop@master target]$ ls
+        apidocs                 maven-status
+        archive-tmp             spatialhadoop-2.4.3-SNAPSHOT-bin.tar.gz
+        classes                 spatialhadoop-2.4.3-SNAPSHOT.jar
+        generated-sources       spatialhadoop-2.4.3-SNAPSHOT-javadoc.jar
+        generated-test-sources  spatialhadoop-2.4.3-SNAPSHOT-sources.jar
+        javadoc-bundle-options  spatialhadoop-2.4.3-SNAPSHOT-uber.jar
+        maven-archiver          test-classes
+    ```
+
+
 ### 2. spatialHadoop的各种操作
 **注意的问题：** 
 - 这个的操作前提是前面能够安装成功,可以通过几个简单的命令进行检测,[官网](http://spatialhadoop.cs.umn.edu/)上给的命令拿来检测一下即可.
-- 输入的文件的默认格式是什么?
+- 输入的文件的默认格式是什么 
 - 输入的文件的格式如何进行扩展的?
-- 如果有的参数与值之间有冒号,则这个冒号与其无空格
+- 如果有的参数与值之间有冒号,则这个冒号与其无空格.
+- 若想要绘图则需要先进行索引.
 
 1) `bin/shadoop index <inpath> <outpath> sindex:<sindex> shape:<shape> blocksize:<size> -overwrite ` 
    - 各个参数: 
-     - `<inpath>`: 所需要输入的文件的路径(注意:这个文件需要在hdfs上)
+     - `<inpath>`: 所需要输入的文件的路径(注意:这个文件需要在hdfs上),文件中常见的默认格式point【X,Y】; rect【X, Y, Width, Height】; polygon【points (0,0), (1,1) and (1,0)表示为 3,0,0,1,1,1,0】,其中3代表点的个数)
      - `<outpath>`: 输出的文件的路径
      - `<sindex>` : 空间索引过程中是按哪种方式进行的( grid, rtree, r+tree, r*tree, r*tree+, str, str+, quadtree, kdtree, zcurve, or hilbert)
      - `<shape>` : 可以使用简短的名字的有`point`、`rectangle`,还有一些需要使用完整的类名[数据类型](http://spatialhadoop.cs.umn.edu/doc-2.3/edu/umn/cs/spatialHadoop/core/Shape.html),这些数据类型的使用主要根据应用场景而决定.
      - `blocksize:<size>`: 生成文件的块的大小, 默认情况使用默认的块的大小(我觉得默认情况下和hadoop配置块大小有关)
      - `-overwrite` : 如果命令中有这个参数,则在文件输出时,如果有和它重名的则会直接覆盖.   
-     
 
-2)  
+2) ` bin/shadoop gplot <input> <output> shape:<input format> width:<w> height:<h> -keep-ratio color:<c> -vflip -overwrite`
+    - 主要参数
+        - `<output>` : 要输出的图片的路径,其实也就是文件的名字,生成的图片为png文件
+        - `<shape>` : 
+        - `<w> <h>`:默认为1000
+        - `<c>`: 绘图时数据显示的颜色:colors: red, pink, blue, cyan, green, black, gray, and orange.
+        - `-vflip` : 垂直翻转整个图片
+    - 关于绘图还有一种方式:使用[QGIS](https://www.qgis.org/en/site/forusers/download.html)  
+        - Centos 安装QGIS的命令: 【 sudo yum install qgis qgis-python qgis-grass qgis-mapserver】
+        - 安装成功后,在进行索引后产生的目录中,将后缀为.kwt的文件使用命令【hadoop fs -get /user/MHadoop/test2_Output/xxx.kwt】拷贝到本地
+        - 打开QGIS,点击左侧栏中的`Add Delimited Text Layer`按钮
+        - 使用`Browse`打开刚才从hadoop上下载的.kwt文件,设置剩余按钮的属性
+            - 勾选 `tab`
+            - 勾选 `First record has field names`
+            - 勾选 `Well Known Text (WKT)" geometry definition`
+            - 勾选 `Boundaries" as a Geometry field.`
+            - 点击OK
+            - 选择 `WGS 84`
+            
 3)  hadoop jar spatialhadoop-2.4.3-SNAPSHOT.jar hadoopviz
 
-3) 其它的参考: [这个吧](https://github.com/aseldawy/spatialhadoop2/wiki/A-list-of-most-operations-in-SpatialHadoop)
-
-
-
-
+4) 其它的参考: [这个吧](https://github.com/aseldawy/spatialhadoop2/wiki/A-list-of-most-operations-in-SpatialHadoop)
+ 
+ 
 
 ### Q&A
+**参考的网址:**
+- [aseldawy的博客](http://aseldawy.blogspot.com/2017/10/visualize-spatialhadoop-indexes.html)
+- [aseldawy的git的wiki](https://github.com/aseldawy/spatialhadoop2/wiki/A-list-of-most-operations-in-SpatialHadoop)
+- [spatialHadoop的官网](http://spatialhadoop.cs.umn.edu/all_operations.html)
+
+**参考的论文:**
+
+- 
+- 
+
+
 **问题一:**
 
 >使用git下载spatialhadoop后, 在右侧栏中的maven功能窗口总出现这个错误: `- Missing artifact jdk.tools:jdk.tools:jar:1.6)`
