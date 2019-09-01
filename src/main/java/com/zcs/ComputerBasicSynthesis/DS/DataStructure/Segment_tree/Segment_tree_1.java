@@ -12,6 +12,15 @@ import java.util.StringTokenizer;
  */
 
 public class Segment_tree_1 {
+    /**
+     * 线段树的构建
+     * @param tree
+     * @param arr
+     * @param node
+     * @param start
+     * @param end
+     */
+
     public static void  BuildTree(int[]tree, int[] arr, int node, int start, int end) {
         if(start == end) {
             tree[node] = arr[start];
@@ -25,6 +34,17 @@ public class Segment_tree_1 {
         tree[node] = tree[node_left] + tree[node_right];
         return;
     }
+
+    /**
+     * 线段树的单点修改
+     * @param tree
+     * @param arr
+     * @param node
+     * @param start
+     * @param end
+     * @param pos
+     * @param val
+     */
     public static void Modify(int[] tree, int[] arr, int node, int start, int end, int pos, int val) {
         if(start == end) {
             tree[node] = val;
@@ -41,6 +61,18 @@ public class Segment_tree_1 {
         tree[node] = tree[node_left] + tree[node_right];
         return;
     }
+
+    /**
+     * 线段树的区间查询,适用于现在的情况
+     * @param tree
+     * @param arr
+     * @param node
+     * @param start
+     * @param end
+     * @param L
+     * @param R
+     * @return
+     */
     public static int Query(int[] tree, int[] arr, int node, int start, int end, int L, int R) {
         //System.out.println("start : " + start+ ", end : " + end);
         if(start == end) {
