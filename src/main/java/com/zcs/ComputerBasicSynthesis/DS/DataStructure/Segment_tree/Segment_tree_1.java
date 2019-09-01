@@ -18,8 +18,8 @@ public class Segment_tree_1 {
             return;
         }
         int mid = (start + end) >> 1;
-        int node_left = node * 2;
-        int node_right = node * 2 + 1;
+        int node_left = node * 2 + 1;
+        int node_right = node * 2 + 2;
         BuildTree(tree, arr, node_left, start, mid);
         BuildTree(tree, arr, node_right, mid + 1, end);
         tree[node] = tree[node_left] + tree[node_right];
@@ -31,8 +31,8 @@ public class Segment_tree_1 {
             return;
         }
         int mid = (start + end) >> 1;
-        int node_left = node * 2;
-        int node_right = node * 2 + 1;
+        int node_left = node * 2 + 1;
+        int node_right = node * 2 + 2;
         if(pos <= mid) {
             Modify(tree, arr, node_left, start, mid, pos, val);
         }else {
@@ -53,8 +53,8 @@ public class Segment_tree_1 {
             return tree[node];
         }
         int mid = (start + end) >> 1;
-        int node_left = 2 * node;
-        int node_right = 2 * node + 1;
+        int node_left = 2 * node + 1;
+        int node_right = 2 * node + 2;
         int sum_left = Query(tree, arr, node_left, start, mid,  L, R);
         int sum_right = Query(tree, arr, node_right, mid + 1, end, L, R);
         return sum_left + sum_right;
@@ -62,20 +62,20 @@ public class Segment_tree_1 {
     public static void main(String[] args) {
         int[] arr = {1, 3, 5, 7, 9, 11};
         int len = arr.length;
-        int[] tree = new int[4*len + 1];
-        BuildTree(tree, arr, 1, 0, len - 1);
+        int[] tree = new int[4*len ];
+        BuildTree(tree, arr, 0, 0, len - 1);
         for(int i = 0; i < tree.length; i ++) {
             System.out.println("node =" + i +","+tree[i]);
         }
         System.out.println();
 
-        Modify(tree, arr, 1, 0, len - 1, 4, 6);
+        Modify(tree, arr, 0, 0, len - 1, 4, 6);
         for(int i = 0; i < tree.length; i ++) {
             System.out.println("node =" + i +","+tree[i]);
         }
 
         System.out.println();
-        int res = Query(tree, arr, 1, 0, len - 1, 2, 5);
+        int res = Query(tree, arr, 0, 0, len - 1, 2, 5);
         System.out.println("sum = " +res);
     }
     static class InputReader {
