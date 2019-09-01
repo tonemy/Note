@@ -42,6 +42,7 @@ public class Main {
             for(i = 1; i <= n; i ++) {
                rank[sa[i]] = i;
             }
+            System.out.println("rank"+Arrays.toString(rank));
             for(i = 0; i < n; height[rank[i ++]] = k) {
                for(k = (k == 0) ? 0 : k - 1,j = sa[rank[i] - 1]; r[j + k] == r[i + k]; k ++);
             }
