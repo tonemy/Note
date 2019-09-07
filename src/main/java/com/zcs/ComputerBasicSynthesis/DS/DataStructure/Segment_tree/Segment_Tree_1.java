@@ -11,7 +11,7 @@ import java.util.StringTokenizer;
  * @Date: 2019/8/31 20:56
  */
 
-public class Segment_tree_1 {
+public class Segment_Tree_1 {
     /**
      * 线段树的构建
      * @param tree
@@ -91,6 +91,7 @@ public class Segment_tree_1 {
         int sum_right = Query(tree, arr, node_right, mid + 1, end, L, R);
         return sum_left + sum_right;
     }
+
     public static void main(String[] args) {
         int[] arr = {1, 3, 5, 7, 9, 11};
         int len = arr.length;
