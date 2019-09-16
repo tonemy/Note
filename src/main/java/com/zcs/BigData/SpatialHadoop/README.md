@@ -41,9 +41,9 @@
 4) 将其jar包上传至hadoop集群中, 借助远程工具上传即可,如: Xshell(最好使用老版本的)
 5) 使用如下命令运行,这个test2.grid是我已经进行索引过了,你需要先尝试下官网上的前两个命令
 
-```
-hadoop jar spatialhadoop-2.4.3-SNAPSHOT.jar readfile test2.grid
-```
+    ```
+    hadoop jar spatialhadoop-2.4.3-SNAPSHOT.jar readfile test2.grid
+    ```
 
 6) 其 hadoop jar spatialhadoop-2.4.3-SNAPSHAT.jar 就相当于 方式一中的bin/shadoop命令.官网上给的 命令都可以尝试一下
 
@@ -82,48 +82,48 @@ hadoop jar spatialhadoop-2.4.3-SNAPSHOT.jar readfile test2.grid
     安装后虽然错误较少,但spatialHadoop的数据处理页面visulizer.jsp页面不能显示,原因是和我的hadoop版本不合适,原因以及办法见附录
     
 7) 修改pom.xml的文件内容,主要修改hadoop的版本信息,要和你的Hadoop版本相同,还有jdk的版本信息
-- 如下所注释的部分需要修改
-```
-  <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.5.1</version>
-        <configuration>
-          <source>1.6</source> #修改为你的jdk版本
-          <target>1.6</target> #修改为你的jdk版本
-        </configuration>
-  </plugin>
+如下所注释的部分需要修改
+    ```
+      <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.5.1</version>
+            <configuration>
+              <source>1.6</source> #修改为你的jdk版本
+              <target>1.6</target> #修改为你的jdk版本
+            </configuration>
+      </plugin>
+    
+    
+    ```
 
-
-```
-
-```
-    <!-- Hadoop 2.x -->
-    <dependency>
-      <groupId>org.apache.hadoop</groupId>
-      <artifactId>hadoop-common</artifactId>
-      <version>2.6.0</version> #修改为你的hadoop集群的版本
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.hadoop</groupId>
-      <artifactId>hadoop-hdfs</artifactId>
-      <version>2.6.0</version> #修改为你的hadoop集群的版本
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.hadoop</groupId>
-      <artifactId>hadoop-mapreduce-client-common</artifactId>
-      <version>2.6.0</version> #修改为你的hadoop集群的版本
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.hadoop</groupId>
-      <artifactId>hadoop-mapreduce-client-core</artifactId>
-      <version>2.6.0</version>  #修改为你的hadoop集群的版本
-    </dependency>
-
-```
+    ```
+        <!-- Hadoop 2.x -->
+        <dependency>
+          <groupId>org.apache.hadoop</groupId>
+          <artifactId>hadoop-common</artifactId>
+          <version>2.6.0</version> #修改为你的hadoop集群的版本
+        </dependency>
+    
+        <dependency>
+          <groupId>org.apache.hadoop</groupId>
+          <artifactId>hadoop-hdfs</artifactId>
+          <version>2.6.0</version> #修改为你的hadoop集群的版本
+        </dependency>
+    
+        <dependency>
+          <groupId>org.apache.hadoop</groupId>
+          <artifactId>hadoop-mapreduce-client-common</artifactId>
+          <version>2.6.0</version> #修改为你的hadoop集群的版本
+        </dependency>
+    
+        <dependency>
+          <groupId>org.apache.hadoop</groupId>
+          <artifactId>hadoop-mapreduce-client-core</artifactId>
+          <version>2.6.0</version>  #修改为你的hadoop集群的版本
+        </dependency>
+    
+    ```
 
 8) 进入spatialHadoop目录下,使用maven编译【mvn compile】,打包【mvn assembly:assembly】,成功后就可以看到如下jar包
     ```
@@ -137,6 +137,14 @@ hadoop jar spatialhadoop-2.4.3-SNAPSHOT.jar readfile test2.grid
         javadoc-bundle-options  spatialhadoop-2.4.3-SNAPSHOT-uber.jar
         maven-archiver          test-classes
     ```
+9) 检测是否安装成功
+- 合理的检测一下[官网](http://spatialhadoop.cs.umn.edu/)给出的各种基础操作命令
+- 能在50070端口看到如下的页面
+`http://172.21.3.210:50070/webapps/hdfs/visualizer.jsp`
+![](Picture/shadoop_2.png)
+`http://172.21.3.210:50070/webapps/hdfs/pigeon.jsp`
+![](Picture/shadoop_3.png)
+
 
 
 ### 2. spatialHadoop的各种操作
@@ -181,15 +189,13 @@ hadoop jar spatialhadoop-2.4.3-SNAPSHOT.jar readfile test2.grid
         - `shape:<input format>`: 输入文件的数据的类型
         - `rect:<rectangle>` : x1,x2,y1,y2 ,所搜索矩形的范围
 
-
-
 4)  `hadoop jar spatialhadoop-2.4.3-SNAPSHOT.jar hadoopviz`
 
 5) 其它的参考: [这个吧](https://github.com/aseldawy/spatialhadoop2/wiki/A-list-of-most-operations-in-SpatialHadoop)
  
  
 
-### Q&A
+### 3. 附录 Q&A
 **参考的网址:**
 - [aseldawy的博客](http://aseldawy.blogspot.com/2017/10/visualize-spatialhadoop-indexes.html)
 - [aseldawy的git的wiki](https://github.com/aseldawy/spatialhadoop2/wiki/A-list-of-most-operations-in-SpatialHadoop)
