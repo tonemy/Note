@@ -1,37 +1,39 @@
 
-### 1. SpatialHadoop 在Hadoop集群中的安装
+### 1. SpatialHadoop 在 Hadoop2.6.5集群中的安装
 
 **注意:**
 - 我选择的是支持Hadoop2.x的相应的版本的进行下载,也就是与Hadoop2.x的版本要兼容,同时还有可进行扩展的jar包
-- 我是用的是搭建在 Centos 上的Hadoop集群,所以下面描述的相关命令均在Centos上
+- 我是用的是搭建在 Centos 上的Hadoop集群,所以下面描述的相关命令均在Centos7上
 
-#### 1.1 方式一
-1) SpatialHadoop 下载地址: [点击这里](http://spatialhadoop.cs.umn.edu/#downloads)
+#### 1.1 方式一（不推荐,仅作铺垫与了解,因为官网下载的`spatialHadoop`包不一定适合我们自己搭建的hadoop集群版本和jdk版本）
+1) `SpatialHadoop`  下载地址: [点击这里](http://spatialhadoop.cs.umn.edu/#downloads)
 
-2) 下载后,上传到Hadoop集群中的各个节点下的hadoop的主目录下【scp -r spatialhadoop-2.4.2-bin.tar.gz MHadoop@SlaveX.Hadoop:/xx/xx/hadoop】，
-   进行解压【tar -vxf spatialhadoop-2.4.2-bin.tar.gz】:
+2) 下载后,分别分配给Hadoop集群中的各个节点下的`${HADOOP_HOME}`的主目录下:
+   `【scp -r spatialhadoop-2.4.2-bin.tar.gz MHadoop@SlaveX.Hadoop:/xx/xx/hadoop】`，
+   进行解压:`【tar -vxf spatialhadoop-2.4.2-bin.tar.gz】`:
+3) 成功解压后，你就可以在上面显示的路径中看到相应的文件
 
-```
-LICENSE.txt
-README.md
-etc/
-etc/hadoop/
-bin/
-etc/hadoop/spatial-site.xml.template
-bin/shadoop
-share/hadoop/common/lib/spatialhadoop-2.4.2.jar
-share/hadoop/etc/hadoop/spatial-site.xmlcommon/lib/jts-1.13.jar
-share/hadoop/common/lib/esri-geometry-api-1.2.1.jar
-share/hadoop/common/lib/javax.mail-1.5.5.jar
-share/hadoop/common/lib/javax.mail-api-1.5.5.jar
-```
-
-3) 成功后，你就可以在上面显示的路径中看到相应的文件
+    ```
+    LICENSE.txt
+    README.md
+    etc/
+    etc/hadoop/
+    bin/
+    etc/hadoop/spatial-site.xml.template
+    bin/shadoop
+    share/hadoop/common/lib/spatialhadoop-2.4.2.jar
+    share/hadoop/etc/hadoop/spatial-site.xmlcommon/lib/jts-1.13.jar
+    share/hadoop/common/lib/esri-geometry-api-1.2.1.jar
+    share/hadoop/common/lib/javax.mail-1.5.5.jar
+    share/hadoop/common/lib/javax.mail-api-1.5.5.jar
+    ```
+   
 4) 在`etc/hadoop/hadoop-env.sh`中配置java的环境变量
 5) 重启hadoop集群，确保lib库中的jar包已被添加.
 6) 下面就可以在Hadoop集群运行的情况下,尝试一下官网给的案例了
 
-#### 1.2 方式二
+#### 1.2 方式二 (不推荐,但也有优点: 不用把spatialHadoop的源码分配到各个节点,一个jar包就包括了spatialHadoop的操作方法)
+
 1) 下载其源码, [地址](https://github.com/aseldawy/spatialhadoop2)(不需要直接下载,直接看第二步骤)
 2) 使用IDEA中的git插件来下载源码, [教程,看这儿](https://blog.csdn.net/my_springlove/article/details/80184560)
 3) 可以利用IDEA中的maven的plugin进行打包jar包, 在IDEA右侧栏有Maven的功能窗口,打开,找到 **package**,点击一下,就开把整个项目进行打包了
@@ -45,13 +47,14 @@ hadoop jar spatialhadoop-2.4.3-SNAPSHOT.jar readfile test2.grid
 
 6) 其 hadoop jar spatialhadoop-2.4.3-SNAPSHAT.jar 就相当于 方式一中的bin/shadoop命令.官网上给的 命令都可以尝试一下
 
-#### 1.3方式三
+#### 1.3方式三(优先推荐)
+
 **注意的问题:**
 
 - 这种方式还是以方式二为基础的,只不过换了个操作系统,`Windows 10 -> Centos 7`,主要因为在windows上hadoop的相关依赖在打包时一直报错
 - 在使用maven进行编译时会出现一些问题,我遇到的问题已经在附录中进行了补充.
 
-1) 下载可以运行在centos系统的jar包,[apache-maven-3.6.1-bin.tar.gz](http://mirror.bit.edu.cn/apache/maven/maven-3/3.6.1/binaries/apache-maven-3.6.1-bin.tar.gz)
+1) 下载可以运行在centos7系统的jar包,[apache-maven-3.6.1-bin.tar.gz](http://mirror.bit.edu.cn/apache/maven/maven-3/3.6.1/binaries/apache-maven-3.6.1-bin.tar.gz)
 2) 安装方式: [点击这里](https://maven.apache.org/install.html)
 3) 前提是你已经配置好了jdk的环境变量,配置Maven的环境变量,在`/etc/profile `或`/etc/bashrc`中添加如下配置:
 
@@ -75,8 +78,53 @@ hadoop jar spatialhadoop-2.4.3-SNAPSHOT.jar readfile test2.grid
     OS name: "linux", version: "3.10.0-693.el7.x86_64", arch: "amd64", family: "unix"
     
     ```
-6) 从git上下载spatialHadoop的源码文件,[地址](https://github.com/aseldawy/spatialhadoop2)
-7) 修改pom.xml的文件内容,主要修改hadoop的版本信息,要和你的Hadoop版本相同
+6) 从git上下载spatialHadoop的源码文件,[地址](https://github.com/aseldawy/spatialhadoop2),这个地址是我第一次尝试的地址,
+    安装后虽然错误较少,但spatialHadoop的数据处理页面visulizer.jsp页面不能显示,原因是和我的hadoop版本不合适,原因以及办法见附录
+    
+7) 修改pom.xml的文件内容,主要修改hadoop的版本信息,要和你的Hadoop版本相同,还有jdk的版本信息
+- 如下所注释的部分需要修改
+```
+  <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.5.1</version>
+        <configuration>
+          <source>1.6</source> #修改为你的jdk版本
+          <target>1.6</target> #修改为你的jdk版本
+        </configuration>
+  </plugin>
+
+
+```
+
+```
+    <!-- Hadoop 2.x -->
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-common</artifactId>
+      <version>2.6.0</version> #修改为你的hadoop集群的版本
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-hdfs</artifactId>
+      <version>2.6.0</version> #修改为你的hadoop集群的版本
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-mapreduce-client-common</artifactId>
+      <version>2.6.0</version> #修改为你的hadoop集群的版本
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-mapreduce-client-core</artifactId>
+      <version>2.6.0</version>  #修改为你的hadoop集群的版本
+    </dependency>
+
+```
+
 8) 进入spatialHadoop目录下,使用maven编译【mvn compile】,打包【mvn assembly:assembly】,成功后就可以看到如下jar包
     ```
       [MHadoop@master spatialhadoop2]$ cd target/
@@ -127,12 +175,15 @@ hadoop jar spatialhadoop-2.4.3-SNAPSHOT.jar readfile test2.grid
             - 点击OK
             - 选择 `WGS 84`
             
-3)  bin/shadoop rangequery <input> <output> shape:<input format> rect:<rectangle> -overwrite
+3)  `bin/shadoop rangequery <input> <output> shape:<input format> rect:<rectangle> -overwrite`
     - 主要参数
         - `<input>`:输入文件的路径,如果是已经被索引的生成,则搜索时间会较短
         - `shape:<input format>`: 输入文件的数据的类型
         - `rect:<rectangle>` : x1,x2,y1,y2 ,所搜索矩形的范围
-4)  hadoop jar spatialhadoop-2.4.3-SNAPSHOT.jar hadoopviz
+
+
+
+4)  `hadoop jar spatialhadoop-2.4.3-SNAPSHOT.jar hadoopviz`
 
 5) 其它的参考: [这个吧](https://github.com/aseldawy/spatialhadoop2/wiki/A-list-of-most-operations-in-SpatialHadoop)
  
