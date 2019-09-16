@@ -25,6 +25,7 @@ share/hadoop/common/lib/esri-geometry-api-1.2.1.jar
 share/hadoop/common/lib/javax.mail-1.5.5.jar
 share/hadoop/common/lib/javax.mail-api-1.5.5.jar
 ```
+
 3) 成功后，你就可以在上面显示的路径中看到相应的文件
 4) 在`etc/hadoop/hadoop-env.sh`中配置java的环境变量
 5) 重启hadoop集群，确保lib库中的jar包已被添加.
@@ -353,9 +354,27 @@ java.lang.ArithmeticException: / by zero
 - **解决办法:**
 - 运行一下这个命令,`rm -f /var/run/yum.pid`,删除此时被锁的文件
 
-
-
+**问题八:**
+>在安装spatialHadoop后没有出现50070端口的处理数据的页面，也就是没出现spatialHadoop的主页面。
  
+- **解决办法：**
+- 这个主要由于spatialHadoop的源代码与hadoop2.x没有完全的融合,需要修改一些代码.主要修改如下：
+
+```
+org.apache.hadoop.hdfs.server.namenode.JspHelper
+----> import="org.apache.hadoop.hdfs.server.common.JspHelper
+
+```
+- 而我们不需要去一个个的修改,已经有大佬修改过了,只需下载一下他的仓库的spatialHadoop的源码,进行编译即可
+  地址:[honestold3/spatialhadoop2](https://github.com/honestold3/spatialhadoop2)
+
+**问题九:**
+>编译以上的代码后,再次打开50070端口的页面，会出现以下错误.
+![s](Picture/shadoop_1.png)
+- **解决办法:**
+- 这个主要因为缺少一个相关的jar包的问题,直接在${hadoop_home}/share/hadoop/common/lib下放入个
+   tomcat下的`asper-jdt.jar`,在maven官网上下载一个就可以了，[下载地址](https://mvnrepository.com/artifact/tomcat/jasper-compiler-jdt)
+   
  
  
  

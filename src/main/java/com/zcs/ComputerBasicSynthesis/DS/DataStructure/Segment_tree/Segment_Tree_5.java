@@ -16,7 +16,7 @@ public class Segment_Tree_5 {
         int len = arr.length;
         int[] tree = new int[2 * len + 4];
         int M = 1;
-        for(; M < len; M <<= 1);
+        for(; M <= len; M <<= 1);
 
         BuildTree(tree, arr, M);
 
@@ -30,11 +30,11 @@ public class Segment_Tree_5 {
             System.out.println("i = " + i+" ,"+ tree[i]);
         }
 
-        int res = QueryTree(tree, arr, M, 1, 5);
+        int res = QueryTree(tree,  M, 1, 5);
         System.out.println("res = " + res);
     }
 
-    private static int QueryTree(int[] tree, int[] arr, int M, int l, int r) {
+    private static int QueryTree(int[] tree,  int M, int l, int r) {
         int res = 0, hi = 0, ho = 0;
         l += M;
         r += M;
@@ -51,7 +51,7 @@ public class Segment_Tree_5 {
             }
         }
         res = Math.max(hi + tree[l], ho + tree[r]);
-        while(l > 0) res += tree[l >>= 1];
+        while(l > 1) res += tree[l >>= 1];
         return res;
     }
 
@@ -73,7 +73,7 @@ public class Segment_Tree_5 {
             tree[r ^ 1] -= tmp;
             tree[r >> 1] += tmp;
         }
-        for(; l != 0; l >>= 1) {
+        for(; l > 1; l >>= 1) {
             tmp = Math.max(tree[l], tree[l ^ 1]);
             tree[l] -= tmp;
             tree[l ^ 1] -= tmp;
