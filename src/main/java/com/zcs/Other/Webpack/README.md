@@ -16,12 +16,48 @@
 
 --- 
 #### 问题1.2
- 
+
+**问题描述：**
+
+使用命令`webpack runoob1.js bundle.js`
+**错误信息：**
+
 ``` 
 
+D:\Git仓库\Note\src\main\java\com\zcs\Other\Webpack\app>webpack runoob1.js bundle.js
+
+D:\Git仓库\Note\src\main\java\com\zcs\Other\Webpack\app>"node"  "C:\Users\gistide\AppData\Roaming\npm\\node_modules\webpack\bin\webpack.js" runoob1.js bu
+ndle.js
+Hash: dc36b68cb945931428f8
+Version: webpack 4.40.2
+Time: 332ms
+Built at: 2019-09-23 17:40:56
+ 1 asset
+Entrypoint main = main.js
+[0] multi ./runoob1.js bundle.js 40 bytes {0} [built]
+[1] ./runoob1.js 27 bytes {0} [built]
+
+WARNING in configuration
+The 'mode' option has not been set, webpack will fallback to 'production' for this value. Set 'mode' option to 'development' or 'production' to enable de
+faults for each environment.
+You can also set it to 'none' to disable any default behavior. Learn more: https://webpack.js.org/configuration/mode/
+
+ERROR in multi ./runoob1.js bundle.js
+Module not found: Error: Can't resolve 'bundle.js' in 'D:\Git仓库\Note\src\main\java\com\zcs\Other\Webpack\app'
+ @ multi ./runoob1.js bundle.js main[1]
+
 ```
+**问题解决:**
+
+我的webpack版本过高的原因，原来的命令已经不适用了。更换一下打包命令即可,`webpack runoob1.js -o bundle.js`
+
 #### 问题1.3
-- webpack打包时出现的错误
+**问题描述**
+
+在编写webpack.config.js 文件后时，运行webpack打包时出现的错误
+
+**错误信息**
+
 ```
 D:\Git仓库\Note\src\main\java\com\zcs\Other\Webpack\app>webpack
 
@@ -33,137 +69,9 @@ Invalid configuration object. Webpack has been initialised using a configuration
 extCritical?, wrappedContextRecursive?, wrappedContextRegExp? }
    -> Options affecting the normal modules (`NormalModuleFactory`).
 ```
-#### 问题4
 
-- 错误信息
+**问题解决**
 
-``` 
-D:\Git仓库\Note\src\main\java\com\zcs\Other\Webpack\app>webpack
+将webpack.config.js 文件中的loaders 改为 rules即可。
 
-D:\Git仓库\Note\src\main\java\com\zcs\Other\Webpack\app>"node"  "C:\Users\gistide\AppData\Roaming\npm\\node_modules\webpack\bin\webpack.js"
-C:\Users\gistide\AppData\Roaming\npm\node_modules\webpack-cli\bin\cli.js:93
-                                throw err;
-                                ^
-
-Error: Cannot find module '@webassemblyjs/ast'
-Require stack:
-- D:\Git仓库\Note\src\main\java\com\zcs\Other\Webpack\app\node_modules\_webpack@4.40.2@webpack\lib\wasm\WebAssemblyParser.js
-- D:\Git仓库\Note\src\main\java\com\zcs\Other\Webpack\app\node_modules\_webpack@4.40.2@webpack\lib\wasm\WebAssemblyModulesPlugin.js
-- D:\Git仓库\Note\src\main\java\com\zcs\Other\Webpack\app\node_modules\_webpack@4.40.2@webpack\lib\WebpackOptionsApply.js
-- D:\Git仓库\Note\src\main\java\com\zcs\Other\Webpack\app\node_modules\_webpack@4.40.2@webpack\lib\webpack.js
-- D:\Git仓库\Note\src\main\java\com\zcs\Other\Webpack\app\webpack.config.js
-- C:\Users\gistide\AppData\Roaming\npm\node_modules\webpack-cli\bin\utils\convert-argv.js
-- C:\Users\gistide\AppData\Roaming\npm\node_modules\webpack-cli\bin\cli.js
-- C:\Users\gistide\AppData\Roaming\npm\node_modules\webpack\bin\webpack.js
-    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:772:15)
-    at Function.Module._load (internal/modules/cjs/loader.js:677:27)
-    at Module.require (internal/modules/cjs/loader.js:830:19)
-    at require (C:\Users\gistide\AppData\Roaming\npm\node_modules\webpack-cli\node_modules\_v8-compile-cache@2.0.3@v8-compile-cache\v8-compile-cache.js:1
-61:20)
-    at Object.<anonymous> (D:\Git仓库\Note\src\main\java\com\zcs\Other\Webpack\app\node_modules\_webpack@4.40.2@webpack\lib\wasm\WebAssemblyParser.js:7:1
-1)
-    at Module._compile (C:\Users\gistide\AppData\Roaming\npm\node_modules\webpack-cli\node_modules\_v8-compile-cache@2.0.3@v8-compile-cache\v8-compile-ca
-che.js:192:30)
-    at Object.Module._extensions..js (internal/modules/cjs/loader.js:947:10)
-    at Module.load (internal/modules/cjs/loader.js:790:32)
-    at Function.Module._load (internal/modules/cjs/loader.js:703:12)
-    at Module.require (internal/modules/cjs/loader.js:830:19)
-    at require (C:\Users\gistide\AppData\Roaming\npm\node_modules\webpack-cli\node_modules\_v8-compile-cache@2.0.3@v8-compile-cache\v8-compile-cache.js:1
-61:20)
-    at Object.<anonymous> (D:\Git仓库\Note\src\main\java\com\zcs\Other\Webpack\app\node_modules\_webpack@4.40.2@webpack\lib\wasm\WebAssemblyModulesPlugin
-.js:8:27)
-    at Module._compile (C:\Users\gistide\AppData\Roaming\npm\node_modules\webpack-cli\node_modules\_v8-compile-cache@2.0.3@v8-compile-cache\v8-compile-ca
-che.js:192:30)
-    at Object.Module._extensions..js (internal/modules/cjs/loader.js:947:10)
-    at Module.load (internal/modules/cjs/loader.js:790:32)
-    at Function.Module._load (internal/modules/cjs/loader.js:703:12)
-    at Module.require (internal/modules/cjs/loader.js:830:19)
-    at require (C:\Users\gistide\AppData\Roaming\npm\node_modules\webpack-cli\node_modules\_v8-compile-cache@2.0.3@v8-compile-cache\v8-compile-cache.js:1
-61:20)
-    at Object.<anonymous> (D:\Git仓库\Note\src\main\java\com\zcs\Other\Webpack\app\node_modules\_webpack@4.40.2@webpack\lib\WebpackOptionsApply.js:11:34)
-    at Module._compile (C:\Users\gistide\AppData\Roaming\npm\node_modules\webpack-cli\node_modules\_v8-compile-cache@2.0.3@v8-compile-cache\v8-compile-ca
-che.js:192:30)
-    at Object.Module._extensions..js (internal/modules/cjs/loader.js:947:10)
-    at Module.load (internal/modules/cjs/loader.js:790:32)
-    at Function.Module._load (internal/modules/cjs/loader.js:703:12)
-    at Module.require (internal/modules/cjs/loader.js:830:19)
-    at require (C:\Users\gistide\AppData\Roaming\npm\node_modules\webpack-cli\node_modules\_v8-compile-cache@2.0.3@v8-compile-cache\v8-compile-cache.js:1
-61:20)
-    at Object.<anonymous> (D:\Git仓库\Note\src\main\java\com\zcs\Other\Webpack\app\node_modules\_webpack@4.40.2@webpack\lib\webpack.js:10:29)
-    at Module._compile (C:\Users\gistide\AppData\Roaming\npm\node_modules\webpack-cli\node_modules\_v8-compile-cache@2.0.3@v8-compile-cache\v8-compile-ca
-che.js:192:30)
-    at Object.Module._extensions..js (internal/modules/cjs/loader.js:947:10)
-    at Module.load (internal/modules/cjs/loader.js:790:32)
-    at Function.Module._load (internal/modules/cjs/loader.js:703:12) {
-  code: 'MODULE_NOT_FOUND',
-  requireStack: [
-    'D:\\Git仓库\\Note\\src\\main\\java\\com\\zcs\\Other\\Webpack\\app\\node_modules\\_webpack@4.40.2@webpack\\lib\\wasm\\WebAssemblyParser.js',
-    'D:\\Git仓库\\Note\\src\\main\\java\\com\\zcs\\Other\\Webpack\\app\\node_modules\\_webpack@4.40.2@webpack\\lib\\wasm\\WebAssemblyModulesPlugin.js',
-    'D:\\Git仓库\\Note\\src\\main\\java\\com\\zcs\\Other\\Webpack\\app\\node_modules\\_webpack@4.40.2@webpack\\lib\\WebpackOptionsApply.js',
-    'D:\\Git仓库\\Note\\src\\main\\java\\com\\zcs\\Other\\Webpack\\app\\node_modules\\_webpack@4.40.2@webpack\\lib\\webpack.js',
-    'D:\\Git仓库\\Note\\src\\main\\java\\com\\zcs\\Other\\Webpack\\app\\webpack.config.js',
-    'C:\\Users\\gistide\\AppData\\Roaming\\npm\\node_modules\\webpack-cli\\bin\\utils\\convert-argv.js',
-    'C:\\Users\\gistide\\AppData\\Roaming\\npm\\node_modules\\webpack-cli\\bin\\cli.js',
-    'C:\\Users\\gistide\\AppData\\Roaming\\npm\\node_modules\\webpack\\bin\\webpack.js'
-  ]
-}
-
-```
-
-#### 问题5
-``` 
-D:\Git仓库\Note\src\main\java\com\zcs\Other\Webpack\app>webpack runoob1.js bundle.js
-
-D:\Git仓库\Note\src\main\java\com\zcs\Other\Webpack\app>"node"  "C:\Users\gistide\AppData\Roaming\npm\\node_modules\webpack\bin\webpack.js" runoob1.js bu
-ndle.js
-D:\Git仓库\Note\src\main\java\com\zcs\Other\Webpack\app\node_modules\_webpack-cli@3.3.9@webpack-cli\bin\cli.js:93
-                                throw err;
-                                ^
-
-Error: Cannot find module 'D:\Git仓库\Note\src\main\java\com\zcs\Other\Webpack\app\node_modules\_webpack@4.40.2@webpack\node_modules\@webassemblyjs\helpe
-r-module-context\lib\index.js'. Please verify that the package.json has a valid "main" entry
-    at tryPackage (internal/modules/cjs/loader.js:288:19)
-    at Function.Module._findPath (internal/modules/cjs/loader.js:515:18)
-    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:759:27)
-    at Function.Module._load (internal/modules/cjs/loader.js:677:27)
-    at Module.require (internal/modules/cjs/loader.js:830:19)
-    at require (D:\Git仓库\Note\src\main\java\com\zcs\Other\Webpack\app\node_modules\_v8-compile-cache@2.0.3@v8-compile-cache\v8-compile-cache.js:161:20)
-    at Object.<anonymous> (D:\Git仓库\Note\src\main\java\com\zcs\Other\Webpack\app\node_modules\_webpack@4.40.2@webpack\lib\wasm\WebAssemblyParser.js:11:
-5)
-    at Module._compile (D:\Git仓库\Note\src\main\java\com\zcs\Other\Webpack\app\node_modules\_v8-compile-cache@2.0.3@v8-compile-cache\v8-compile-cache.js
-:192:30)
-    at Object.Module._extensions..js (internal/modules/cjs/loader.js:947:10)
-    at Module.load (internal/modules/cjs/loader.js:790:32)
-    at Function.Module._load (internal/modules/cjs/loader.js:703:12)
-    at Module.require (internal/modules/cjs/loader.js:830:19)
-    at require (D:\Git仓库\Note\src\main\java\com\zcs\Other\Webpack\app\node_modules\_v8-compile-cache@2.0.3@v8-compile-cache\v8-compile-cache.js:161:20)
-    at Object.<anonymous> (D:\Git仓库\Note\src\main\java\com\zcs\Other\Webpack\app\node_modules\_webpack@4.40.2@webpack\lib\wasm\WebAssemblyModulesPlugin
-.js:8:27)
-    at Module._compile (D:\Git仓库\Note\src\main\java\com\zcs\Other\Webpack\app\node_modules\_v8-compile-cache@2.0.3@v8-compile-cache\v8-compile-cache.js
-:192:30)
-    at Object.Module._extensions..js (internal/modules/cjs/loader.js:947:10)
-    at Module.load (internal/modules/cjs/loader.js:790:32)
-    at Function.Module._load (internal/modules/cjs/loader.js:703:12)
-    at Module.require (internal/modules/cjs/loader.js:830:19)
-    at require (D:\Git仓库\Note\src\main\java\com\zcs\Other\Webpack\app\node_modules\_v8-compile-cache@2.0.3@v8-compile-cache\v8-compile-cache.js:161:20)
-    at Object.<anonymous> (D:\Git仓库\Note\src\main\java\com\zcs\Other\Webpack\app\node_modules\_webpack@4.40.2@webpack\lib\WebpackOptionsApply.js:11:34)
-    at Module._compile (D:\Git仓库\Note\src\main\java\com\zcs\Other\Webpack\app\node_modules\_v8-compile-cache@2.0.3@v8-compile-cache\v8-compile-cache.js
-:192:30)
-    at Object.Module._extensions..js (internal/modules/cjs/loader.js:947:10)
-    at Module.load (internal/modules/cjs/loader.js:790:32)
-    at Function.Module._load (internal/modules/cjs/loader.js:703:12)
-    at Module.require (internal/modules/cjs/loader.js:830:19)
-    at require (D:\Git仓库\Note\src\main\java\com\zcs\Other\Webpack\app\node_modules\_v8-compile-cache@2.0.3@v8-compile-cache\v8-compile-cache.js:161:20)
-    at Object.<anonymous> (D:\Git仓库\Note\src\main\java\com\zcs\Other\Webpack\app\node_modules\_webpack@4.40.2@webpack\lib\webpack.js:10:29)
-    at Module._compile (D:\Git仓库\Note\src\main\java\com\zcs\Other\Webpack\app\node_modules\_v8-compile-cache@2.0.3@v8-compile-cache\v8-compile-cache.js
-:192:30)
-    at Object.Module._extensions..js (internal/modules/cjs/loader.js:947:10) {
-  code: 'MODULE_NOT_FOUND',
-  path: 'D:\\Git仓库\\Note\\src\\main\\java\\com\\zcs\\Other\\Webpack\\app\\node_modules\\_webpack@4.40.2@webpack\\node_modules\\@webassemblyjs\\helper-m
-odule-context\\package.json',
-  requestPath: '@webassemblyjs/helper-module-context'
-}
-
-
-```
 
