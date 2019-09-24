@@ -11,10 +11,25 @@
     - `npm install -g cnpm --registry=https://registry.npm.taobao.org`,使用淘宝镜像的命令
     - `npm install express`, 本地安装
     - `npm install express -g`, 全局安装
+- webpack项目构建
+    - `mkdir webpack-demo && cd webpack-demo`
+      `npm init -y`
+      `npm install webpack webpack-cli --save-dev`   
+
+### 2. 资源管理    
     
 ### 附录:
 
---- 
+---
+#### 问题1.1
+**问题描述:**
+
+怎么确定什么时候使用`cnpm install --save`,什么时候使用`cnpm install --save-dev` ?
+
+**问题解决:**
+
+
+
 #### 问题1.2
 
 **问题描述：**
@@ -74,4 +89,115 @@ extCritical?, wrappedContextRecursive?, wrappedContextRegExp? }
 
 将webpack.config.js 文件中的loaders 改为 rules即可。
 
+#### 问题2.1
 
+**问题描述** 
+
+在webpack中文网中的起步和管理资源部分的`index.html`的引入的js部分,有些不理解`main.js`和`bundle.js`的区别
+
+- 管理资源的`index.html`
+```$xslt
+<!doctype html>
+  <html>
+    <head>
+-    <title>Getting Started</title>
++    <title>Asset Management</title>
+    </head>
+    <body>
+      <script src="./bundle.js"></script>
+    </body>
+  </html>
+```
+
+- 起步中的`index.html`
+
+```$xslt
+  <!doctype html>
+  <html>
+   <head>
+     <title>起步</title>
+-    <script src="https://unpkg.com/lodash@4.16.6"></script>
+   </head>
+   <body>
+-    <script src="./src/index.js"></script>
++    <script src="main.js"></script>
+   </body>
+  </html>
+```
+
+#### 问题2.2
+
+**问题描述:**
+
+在webpack中的资源管理的加载图片部分,案例给出的`index.js`和`style.css`,的元素div标签中都添加了一个图片
+是不是重复了?
+
+#### 问题2.3
+**问题描述:**
+在尝试***webpack官网文档中的管理输出***中的插件`clean-webpack-plugin` ***清理/dist文件夹***出现错误。
+
+**错误信息:**
+
+`CleanWebpackPlugin is not a constructor`
+
+**问题解决:**
+```html
+
+// 正确写法
+ 
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+ 
+...
+ 
+plugins: [
+    new CleanWebpackPlugin()
+]
+
+```
+
+#### 问题2.4
+**问题描述:**
+
+在webpack官方文档中的***开发***的***调整文本编辑器***，在`IntelliJ`找不到提到的`IntelliJ - 在首选项(preferences)中使用搜索，查找到 "safe write" 并且禁用它`。
+
+**问题解决:**
+- `File/Setting/Appeaance&Behavior/System setting` 页面中就可以看到这个信息:`Use "safe write" (save changes to a temporary file first)`,剩下的就看悟性了.
+- [参考地址](https://jingyan.baidu.com/article/eae07827d8fb075fec5485bf.html)
+
+#### 问题2.5
+**问题描述:**
+
+在webpack的官方文档中的生产环境的构建
+
+**报错信息:**
+
+ERROR in app.bundle.js from UglifyJs
+Unexpected token: name «src_element», expected: punc «;» [app.bundle.js:546,4]
+Child html-webpack-plugin for "index.html":
+
+**问题解决:**
+- 修改`webpack.config.js`配置文件
+
+```
+    {
+        test: /\.js$/,
+        use: [{
+          loader: 'babel-loader',
+          options: {
+             presets: ['es2015']
+          }
+        }],
+        exclude: /node_modules/
+    }
+```
+- 根目录下添加[.babelrc]文件
+
+``` 
+{
+  "presets": ["es2015"]
+}
+```
+
+#### 引入字体的问题
+- [下载字体网站](http://sc.chinaz.com/)
+- [字体转换的网站](https://www.fontke.com/tool/convfont/)
