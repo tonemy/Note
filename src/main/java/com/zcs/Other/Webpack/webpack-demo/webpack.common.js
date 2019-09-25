@@ -1,16 +1,19 @@
 const path = require('path')
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const webpack = require('webpack')
+
 
 module.exports = {
     entry: {
-        app: './src/index.js'
+        app: './src/index.js',
+        another: './src/another-module.js'
     },
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            title: 'Production'
-        })
+            title: 'Caching'
+        }),
     ],
     module: {
         rules: [
@@ -29,6 +32,12 @@ module.exports = {
                 exclude: /node_modules/
             }
         ]
+    },
+    optimization: {
+        //抽取公共的dm
+        splitChunks: {
+            name: 'common'
+        }
     },
     output: {
         filename: '[name].bundle.js',

@@ -1,35 +1,19 @@
-import {cube} from './main.js';
-import printMe from './print.js';
-import './style.css'
-if (process.env.NODE_ENV !== 'production') {
-       console.log('Looks like we are in development mode!');
-}
+import _ from 'lodash';
+import Print from './print';
 
 function component() {
-    var element = document.createElement('pre');
-    var btn = document.createElement('button');
+    var element = document.createElement('div');
+    var button = document.createElement('button');
+    var br = document.createElement('br');
 
+    button.innerHTML = 'Click me and look at the console!';
+    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+    element.appendChild(br);
+    element.appendChild(button);
+    element.onclick = Print.bind(null, 'Hello webpack!');
 
-    btn.innerHTML = 'Click me and check the console!';
-    btn.onclick = printMe;
-
-    element.innerHTML = [
-        'Hello webpack!',
-        '5 cubed is equal to' + cube(5)
-    ].join('\n\n');
-
-    element.appendChild(btn);
 
     return element;
 }
-let element = component();
-document.body.appendChild(element);
 
-if(module.hot) {
-    module.hot.accept('./print.js', function () {
-        console.log('Acceptiong the updated printeMe module!');
-        document.body.removeChild(element);
-        element = component();//重新渲染
-        document.body.appendChild(element);
-    })
-}
+document.body.appendChild(component());

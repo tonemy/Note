@@ -197,7 +197,57 @@ Child html-webpack-plugin for "index.html":
   "presets": ["es2015"]
 }
 ```
+#### 问题 2.6
 
-#### 引入字体的问题
+**问题描述：**
+在尝试webpack文档中的`代码分离`的`防止重复`时，使用插件`CommonsChunkPlugin`爆出这个错误。
+
+Error: webpack.optimize.CommonsChunkPlugin has been removed, please use config.optimization.splitChunks instead.
+
+**问题解决：**
+
+webpack4 移除了 CommonsChunkPlugin，所以需要作相应的修改。由于官方文档并没有及时更新 。
+
+``` 
+-  const webpack = require('webpack');
+ 
+......
+  module.exports = {
+    plugins: [
+-     new webpack.optimize.CommonsChunkPlugin({
+-       name: 'common' // 指定公共 bundle 的名称。
+-     })
+    ],
+ 
++   optimization: {
++     splitChunks: {
++       name: 'common'
++     }
++   },
+
+```
+
+#### 2.7引入字体的问题
+
+**问题描述:**
+
+不知字体文件是什么，在哪儿下载的？
+
+
 - [下载字体网站](http://sc.chinaz.com/)
 - [字体转换的网站](https://www.fontke.com/tool/convfont/)
+
+#### 2.8 webPack中的懒加载
+
+**问题描述:**
+
+对于懒加载还是不理解，而且我在尝试懒加载的例子时总报错
+
+``` 
+  button.onclick = e => import(/* webpackChunkName: "print" */ './print').then(module => {
+                       ^
+      var print = module.default;
+     print();
+  });
+
+```
