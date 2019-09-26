@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../js/jquery-3.4.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("button").click(function () {
+                $("#div1").fadeToggle("fast");
+                $("#div2").fadeToggle("normal");
+                $("#div3").fadeToggle("slow");
+                $("#div4").fadeToggle(4000);
+
+            });
+        })
+    </script>
+</head>
+<body>
+    <button>淡出\淡入</button>
+    <div id="div1" style="width: 80px; height: 80px; background-color: red"></div>
+    <br>
+    <div id="div2" style="width: 80px; height: 80px; background-color: green"></div>
+    <br>
+    <div id="div3" style="width: 80px; height: 80px; background-color: blue"></div>
+    <br>
+    <div id="div4" style="width: 80px; height: 80px; background-color: yellow"></div>
+    <br>
+</body>
+</html>

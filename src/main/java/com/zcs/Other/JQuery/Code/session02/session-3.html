@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../js/jquery-3.4.1.min.js"></script>
+</head>
+    <script type="text/javascript">
+        $(function() {
+            $('#flip').click(function () {
+                $('#panel').slideToggle("slow");
+            });
+        })
+    </script>
+    <style type="text/css">
+        #panel,#flip
+        {
+            padding:5px;
+            text-align:center;
+            background-color:#e5eecc;
+            border:solid 1px #c3c3c3;
+        }
+        #panel
+        {
+            padding:50px;
+            display:none;
+        }
+    </style>
+<body>
+    <div id="flip">隐藏或显示</div>
+    <div id="panel">内容</div>
+
+</body>
+</html>

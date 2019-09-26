@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("button").click(function () {
+                $("p").text(function (i, text) {
+                    return i + "sss" + text;
+                });
+
+            });
+
+        })
+    </script>
+</head>
+<body>
+    <button>测试按钮</button>
+    <p>测试文字</p>
+    <p>测试文字1</p>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../js/jquery-3.4.1.min.js"></script>
+    <style>
+        .blue {
+            color: blue;
+        }
+        .font {
+            font-size: xx-large;
+        }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            $(".button1").click(function () {
+                $("p").addClass("blue");
+            });
+            $(".button2").click(function () {
+                $("p").addClass("font");
+            });
+        })
+
+
+    </script>
+</head>
+<body>
+    <button class="button1">字体变蓝</button>
+    <button class="button2">字体变大</button>
+    <p>这是一些文字</p>
+</body>
+</html>

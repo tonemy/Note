@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $(".button1").click(function () {
+                $("div").remove();
+            });
+            $(".button2").click(function () {
+                $("div").empty();
+            });
+            $(".button3").click(function () {
+                $("p").remove(".test")
+            });
+        })
+    </script>
+    <style>
+        div {
+            width: 500px;
+            height: 500px;
+            border: 1px solid green;
+        }
+    </style>
+</head>
+<body>
+    <button class="button1">remove测试</button>
+    <button class="button2">empty测试</button>
+    <button class="button3">代参测试</button>
+    <div>
+        <p>第一个</p><br>
+        <p class="test">第二个</p><br>
+        <p class="test">第三个</p>
+    </div>
+</body>
+</html>

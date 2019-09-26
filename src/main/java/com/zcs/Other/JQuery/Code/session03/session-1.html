@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#show_word").click(function () {
+                alert($("p").text());
+            })
+
+            $("#show_html").click(function () {
+                alert($("p").html())
+                alert($("p").attr("href"))
+            })
+
+            $("#get").click(function () {
+                alert($("input").val())
+            })
+        })
+    </script>
+</head>
+<body>
+    <input type="text" value="测试文字">
+    <p href = "www.baidu.com">这段是<b>粗体</b>的文字</p>
+    <button id = "show_word" >显示文字</button>
+    <button id = "show_html">显示html</button>
+    <button id = "get">获取文本框中的文字</button>
+</body>
+</html>

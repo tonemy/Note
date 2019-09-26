@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        function aftertext() {
+            let txt_1 = "<b> II </b>"
+            let txt_2 = $("<i> </i>>").text("III")
+            let txt_3 = document.createElement("big")
+            txt_3.innerHTML ="IV"
+            $("div").after(txt_1, txt_2, txt_3)
+        }
+    </script>
+    <style>
+        div {
+            width: 600px;
+            height: 100px;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="aftertext()">追加测试</button>
+    <div></div>
+</body>
+</html>

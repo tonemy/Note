@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../js/jquery-3.4.1.min.js"></script>
+    <style>
+        #queue {
+            width: 50px;
+            height: 50px;
+            background-color: blue;
+        }
+    </style>
+</head>
+    <script>
+        $(function () {
+            $("button").click(function () {
+                var div = $('#queue');
+                div.animate({height: '300px', opacity: '0.2'}, "slow");
+                div.animate({width: '300px', opacity: '0.8'}, "slow");
+                div.animate({height: '100px', opacity: '0.2'}, "slow");
+                div.animate({width: '100px', opacity: '0.8'}, "slow");
+            });
+        })
+    </script>
+<body>
+    <button>一个奇怪的按钮</button>
+    <div id="queue"></div>
+</body>
+</html>

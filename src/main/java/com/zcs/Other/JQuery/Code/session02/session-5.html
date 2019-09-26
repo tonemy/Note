@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../js/jquery-3.4.1.min.js"></script>
+    <script>
+        $(function () {
+            $("button").click(function () {
+                $("#panel").stop();
+            });
+            $("#flip").click(function () {
+                $("#panel").slideToggle("slow");
+            });
+        })
+    </script>
+    <style>
+        #panel, #flip {
+            height: 40px;
+            width: 100px;
+            border: 1px solid red;
+            text-align: center;
+            background-color: green;
+        }
+        #panel {
+            display: none;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+    <button>点击停止</button>
+    <div id="flip">点击滑动</div>
+    <div id="panel"></div>
+</body>
+</html>
