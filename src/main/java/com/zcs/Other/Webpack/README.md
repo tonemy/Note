@@ -251,3 +251,13 @@ webpack4 移除了 CommonsChunkPlugin，所以需要作相应的修改。由于�
   });
 
 ```
+
+#### 3.1 webpack中的__filename 和__dirname的区别
+
+**问题描述:**
+
+不知道两者的区别是什么，表达的意思是什么？
+
+
+- `__dirname`: 是node中的一个全局变量,可以获取当前文件的完整目录
+- `__filename`: 是node中的一个全局变量，可以获取当前文件的绝对路径
