@@ -13,10 +13,17 @@
     - `npm install express -g`, 全局安装
 - webpack项目构建
     - `mkdir webpack-demo && cd webpack-demo`
-      `npm init -y`
-      `npm install webpack webpack-cli --save-dev`   
+    - `npm init -y`
+    - `npm install webpack webpack-cli --save-dev`  
+    - `cnpm i @babel/core @babel/preset-env babel-loader -D` :这个命令就比较有趣了, `i` 是 `install`简称, -D 是`--save-dev`的简称, 主要安装了解析es6的相关包
+       
 
 ### 2. 资源管理    
+
+
+### 3. es6语法
+
+[参考地址](http://caibaojian.com/es6/string.html)
     
 ### 附录:
 
@@ -231,10 +238,11 @@ webpack4 移除了 CommonsChunkPlugin，所以需要作相应的修改。由于�
 
 **问题描述:**
 
-不知字体文件是什么，在哪儿下载的？
+不知字体文件是什么，在哪儿下载的？下面的两个字体下载网址好像不太对
 
 
-- [下载字体网站](http://sc.chinaz.com/)
+- [下载字体网站1](http://sc.chinaz.com/)
+- [下载字体网站2](http://www.fonts.net.cn/fonts-zh-1.html)
 - [字体转换的网站](https://www.fontke.com/tool/convfont/)
 
 #### 2.8 webPack中的懒加载
@@ -261,3 +269,5 @@ webpack4 移除了 CommonsChunkPlugin，所以需要作相应的修改。由于�
 
 - `__dirname`: 是node中的一个全局变量,可以获取当前文件的完整目录
 - `__filename`: 是node中的一个全局变量，可以获取当前文件的绝对路径
+
+#### 3.2 解析es6 是什么玩意?为什么要解析它?

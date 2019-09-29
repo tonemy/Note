@@ -199,9 +199,9 @@
 ### 3. 附录 Q&A
 
 **参考的网址:**
-- [aseldawy的博客](http://aseldawy.blogspot.com/2017/10/visualize-spatialhadoop-indexes.html)
+- [aseldawy的博客,需要翻墙](http://aseldawy.blogspot.com/2017/10/visualize-spatialhadoop-indexes.html)
 - [aseldawy的git的wiki](https://github.com/aseldawy/spatialhadoop2/wiki/A-list-of-most-operations-in-SpatialHadoop)
-- [spatialHadoop的官网](http://spatialhadoop.cs.umn.edu/all_operations.html)
+- [spatialHadoop的官网，国内访问不稳定.有些图片没显示,最好能翻墙](http://spatialhadoop.cs.umn.edu/all_operations.html)
 
 **参考的论文:**
 
