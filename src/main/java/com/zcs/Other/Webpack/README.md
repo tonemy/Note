@@ -24,7 +24,34 @@
 ### 3. es6语法
 
 [参考地址](http://caibaojian.com/es6/string.html)
-    
+
+### 4. 文件指纹
+
+### 5. 文件压缩
+- html 
+- CSS
+- JS
+
+
+### 6. CSS 自动补齐前缀处理
+ 
+
+### 7. 移动端css px转rem
+
+### 8. 资源内联
+
+### 9. 多页面通用打包
+
+### 10. sourcemap 的使用
+
+### 11. 提取页面公共资源
+
+### 12. tree shaking
+
+### 13. 代码分割和动态import
+
+### 14. webpack 使用eslint
+
 ### 附录:
 
 ---
@@ -271,3 +298,37 @@ webpack4 移除了 CommonsChunkPlugin，所以需要作相应的修改。由于�
 - `__filename`: 是node中的一个全局变量，可以获取当前文件的绝对路径
 
 #### 3.2 解析es6 是什么玩意?为什么要解析它?
+
+
+#### 4.1 
+
+**错误信息**
+```
+Invalid configuration object. Webpack has been initialised using a configuration object that does not match the API schema.
+    - configuration.module.rules[2].use[0] has an unknown property 'filename'. These properties are valid:
+      object { ident?, loader?, options?, query? }
+
+```
+
+#### 4.2 
+
+**错误信息**
+
+```
+ Replace Autoprefixer browsers option to Browserslist config.
+  Use browserslist key in package.json or .browserslistrc file.
+
+  Using browsers option cause some error. Browserslist config 
+  can be used for Babel, Autoprefixer, postcss-normalize and other tools.
+
+  If you really need to use option, rename it to overrideBrowserslist.
+
+  Learn more at:
+  https://github.com/browserslist/browserslist#readme
+  https://twitter.com/browserslist
+
+```
+**问题解决:**
+
+- 最新的 autoprefixer 版本里面建议把 browserslist 写在 package.json 或者 . browserslistrc 文件里面去了（刚刚更新，😓）。
+不过你可以直接把browsers改成overrideBrowserslist也可以哈
