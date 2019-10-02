@@ -7,28 +7,30 @@ module.exports = {
         'bbb': __dirname + "/src/static/component/login/js/login.js"
     },
     output: {
-        filename: '[name].bundle.js',
-        path: path.resolve(__dirname, 'dist')
+        filename: '[name]_[hash:8].js',
+        path: path.join(__dirname, 'dist')
     },
+    mode: "production",
     plugins: [
         new HtmlWebpackPlugin({
             // template: "./src/static/component/admin/admin.html",
-           template: "./src/static/component/login/login.html"
+            template: "./src/static/component/login/login.html"
         })
     ],
     module: {
         rules: [
             {
-                test: /\.css$/,
+                test: /.css$/,
                 use: [
                     'style-loader',
                     'css-loader'
                 ]
             },
             {
-                test: /\.(png)|(jpg)|(gif)|(woff)|(svg)|(eot)|(ttf)$/,
+                test: /.(png)|(jpg)|(gif)|(woff)|(svg)|(eot)|(ttf)$/,
                 use: ['url-loader']
             }
         ]
-    }
+    },
+
 }
